@@ -215,8 +215,9 @@ h1{  text-transform: uppercase;
 }
 .Loai.active{
     background-color: #e7b45a;
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
+    font-weight: 400;
 }
 .submit:hover{
     color:#e7b45a;

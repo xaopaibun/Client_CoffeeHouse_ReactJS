@@ -8,6 +8,7 @@ const Cart = () => {
     const removeItem = (_id) =>{
         dispatch({type: "RemoveCart" , _id : _id})
     }
+    dispatch({type: "SumMoneyCart"})
     return (
         <div>
 
@@ -40,7 +41,10 @@ const Cart = () => {
                                             <tr className="text-center" key = {val._id.toString()}>
                                                 <td scope="row">{index + 1}</td>
                                                 <td><img width="100px" height="100px" src={val.images} alt="" /></td>
-                                                <td>{val.TenCoffee} <br /><a onClick={() => removeItem(val._id)}>Xóa</a></td>
+                                                <td>{val.TenCoffee} <br /><a href='' style={{color:'green'}} onClick={(e) => {
+                                                    e.preventDefault();
+                                                    removeItem(val._id);
+                                                }}>Xóa</a></td>
                                                 <td>{Intl.NumberFormat().format(val.gia)} VNĐ</td>
                                                 <td style={{ width: '20px' }}>{val.soluong}</td>
                                                 <td>{Intl.NumberFormat().format(parseInt(val.gia) * parseInt(val.soluong))} VNĐ</td>
@@ -50,9 +54,9 @@ const Cart = () => {
                                     })
                                 }
                                 <tr>
-                                    <td scope="row"><button type="submit" className="btn btn-light btn-lg" name="Update_SoLuongSP">Cập Nhật</button></td>
-                                    <td>&nbsp;</td>
-                                    <td><b>Tổng Tiền</b></td>
+                                    <td scope="row"></td>
+                                    
+                                    <td><b>Tổng tiền thanh toán : </b></td>
                                     <td>&nbsp;</td>
                                     <td>&nbsp;</td>
                                     <td><b>{ } VNĐ</b></td>

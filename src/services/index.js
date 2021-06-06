@@ -13,3 +13,4 @@ export const getCoffee = (id) => instance.get('/getCoffee/' + id);
 export const dangkytk = (prams) => instance.post('/user/dangky', prams);
 export const login = (prams) => instance.post('/user/login', prams);
 export const logout = (prams) => instance.post('/user/logout', prams);
+export const getproductsloai = (prams) => instance.get('/getloai/'+ prams);

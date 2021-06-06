@@ -6,7 +6,7 @@ import {
     Link,
     useParams
   } from "react-router-dom";
-const ProductItem = ({ value }) => (<div className="content-tab01-item" >
+const ProductItem = ({ value }) => (<div className="content-tab01-item">
     <div className="img_sp">
         <img className="img_sp" src={value.images[0]} alt="" />
     </div>
