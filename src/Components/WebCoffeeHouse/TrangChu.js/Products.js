@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useCallback } from 'react';
 import { getproductsloai, getloai } from "../../../services/index";
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ProductItem from './ProductItem';
 import {
     BrowserRouter as Router,
@@ -40,9 +40,10 @@ const Products = () => {
         GetProduct();
         GetLoai();
     }, [_id]);
-   
+
     return (
         <div>
+            
             <section className="section_menu_today" style={{ backgroundImage: "url('https://bizweb.dktcdn.net/100/346/521/themes/818256/assets/bg_menutoday.jpg?1593508429561')" }}>
                 <div className="container">
                     <div className="heading">
@@ -53,20 +54,20 @@ const Products = () => {
                         <div style={{ display: "flex", justifyContent: 'center' }}>
                             {
                                 loai && loai.map((value) => {
-                                   
-                                    const onClickLoaiCoffee = () =>{
-                                        dispatch({type : 'IDLOAI', _idLoai : value._id})
+
+                                    const onClickLoaiCoffee = () => {
+                                        dispatch({ type: 'IDLOAI', _idLoai: value._id })
                                     }
                                     //const [isActive, setActive] = React.useState(false); onClick={() => setActive(!isActive)}
                                     return (
-                                        <span className={_id === value._id ? 'Loai active' : 'Loai'} onClick= {() => onClickLoaiCoffee()} key={value._id}>{value.tenloai}</span>
+                                        <span className={_id === value._id ? 'Loai active' : 'Loai'} onClick={() => onClickLoaiCoffee()} key={value._id}>{value.tenloai}</span>
                                     )
                                 })
                             }
                         </div>
                         <div className="content-tab01">
                             {
-                                dulieu && dulieu.map((value, index) => <ProductItem key={value._id.toString()} value={value}/>)
+                                dulieu && dulieu.map((value, index) => <ProductItem key={value._id.toString()} value={value} />)
                             }
                         </div>
                     </div>

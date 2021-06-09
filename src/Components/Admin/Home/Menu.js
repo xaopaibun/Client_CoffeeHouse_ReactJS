@@ -30,6 +30,10 @@ const Menu = () => {
                         <a className="nav-link" href="#">Đơn Đặt Bàn</a>
                     </li>
                     <li className="nav-item">
+                    <Link className="nav-link" to="/Admin/MenuQuanLyKhac">Danh sách quản lý khác</Link>
+                    </li>
+                    
+                    <li className="nav-item">
                         <Link className="nav-link" to="/Admin/DonHang">Danh sách các đơn đặt hàng</Link>
                     </li>
                     <li className="nav-item">

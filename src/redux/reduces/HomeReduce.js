@@ -1,6 +1,7 @@
 const initialState = {
    cart: [],
-   _idLoai : 'L03'
+   _idLoai : 'L03',
+   keyMenu :"Trang Chủ"
 };
 
 export default function HomeReduce(state = initialState, action) {
@@ -12,6 +13,7 @@ export default function HomeReduce(state = initialState, action) {
             return {...state, ItemCoffee : action.data}
 
         case 'addcart':
+            console.log( state.cart.indexOf(val => val._id === action.item._id))
             return {...state, cart : [...state.cart,action.item ]}
 
         case 'SumMoneyCart':
@@ -22,7 +24,6 @@ export default function HomeReduce(state = initialState, action) {
         case 'RemoveCart':
            return {...state, cart : state.cart.filter((item) => item._id != action._id)}
 
-
         case 'Token' :
             return {...state, refreshToken: action.res.refreshToken, dataUser : action.res.result}
 
@@ -32,6 +33,12 @@ export default function HomeReduce(state = initialState, action) {
         case "IDLOAI":
             return {...state, _idLoai: action._idLoai}
 
+        case "ActiveMenu":
+            return {...state, keyMenu : action.keyMenu}
+
+        case "ResetCart":
+            return {...state, cart :[]}
+            
         default:
             return state;
     }

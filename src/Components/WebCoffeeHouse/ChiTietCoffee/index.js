@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getCoffee } from "../../../services/index";
 import {
     BrowserRouter as Router,
-    
+
     useParams
-  } from "react-router-dom";
+} from "react-router-dom";
+import ModalCart from '../Modals/ModalCart';
 const Coffee = () => {
     //const id = useSelector(state => state.HomeReduce.id)
     let { id } = useParams();
@@ -26,10 +27,11 @@ const Coffee = () => {
             <div className="headertop">
                 <MenuCoffeeHouse />
             </div>
-            <div style={{height: '50px'}}>
+            <div style={{ height: '50px' }}>
 
             </div>
             <ChiTietCoffee />
+            <ModalCart/>
             <Footer />
         </div>
     );

@@ -18,18 +18,32 @@ import DangKy from "../Components/WebCoffeeHouse/DangKy";
 import AllSanPham from "../Components/WebCoffeeHouse/SanPham";
 import Cart from "../Components/WebCoffeeHouse/GioHang";
 import Account from "../Components/WebCoffeeHouse/Account";
+import MenuBar from "../Components/Admin/MenuBar";
+import QuanTri from "../Components/Admin";
+import FormDienThongTin from "../Components/WebCoffeeHouse/FormDienThongTin";
+import OrderDetail from "../Components/Admin/DonHang/OrderDetail";
+import MenuQuanLyKhac from "../Components/Admin/QuanLyKhac";
+import Login from "../Components/Admin/Login";
 
 
 export default function RouterApp() {
   return (
     <Router>
         <Switch>
-        
+        <Route path="/Admin/Login">
+            <Login />
+          </Route>
            <Route path="/Admin/NCC">
             <NCC />
           </Route>
+          <Route path="/Admin/DonHang/OrderDetail">
+            <OrderDetail />
+          </Route>
            <Route path="/Admin/DonHang">
             <DonHang />
+          </Route>
+          <Route path="/Admin/MenuQuanLyKhac">
+            <MenuQuanLyKhac />
           </Route>
           <Route path="/Admin/LoaiCoffee">
             <LoaiCoffee/>
@@ -38,7 +52,7 @@ export default function RouterApp() {
             <SanPham />
           </Route>
           <Route path="/Admin">
-            <Menu />
+            <QuanTri />
           </Route>
           <Route path="/_idCoffee=:id">
             <Coffee />
@@ -57,6 +71,9 @@ export default function RouterApp() {
           </Route>
           <Route path="/DangNhap">
             <DangNhap />
+          </Route>
+          <Route path="/FormDienThongTin">
+            <FormDienThongTin />
           </Route>
           <Route path="/TrangChu">
             <TrangChu />

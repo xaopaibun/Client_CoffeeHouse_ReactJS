@@ -13,6 +13,7 @@ const MenuCoffeeHouse = () => {
     const history = useHistory();
     const dataUser = useSelector(state => state.HomeReduce.dataUser)
     const token = useSelector(state => state.HomeReduce.refreshToken)
+    const keyMenu = useSelector(state => state.HomeReduce.keyMenu)
     const [loai, setloai] = React.useState([]);
     const GetLoai = () => {
         axios.get('http://localhost:5000/getloai')
@@ -37,6 +38,10 @@ const MenuCoffeeHouse = () => {
             console.log(response.data)
             history.push("/TrangChu");
         } ).catch( error => console.log(error))
+    }
+
+    const onActiveMenu = (key) =>{
+        dispatch({type:"ActiveMenu", keyMenu : key})
     }
     return (
         <div>
@@ -63,10 +68,10 @@ const MenuCoffeeHouse = () => {
                         <div className="container">
                             <nav className="header_nav">
                                 <ul className="header_nav_left">
-                                    <li className="nav_item"><Link to="/TrangChu">Trang Chủ</Link></li>
-                                    <li className="nav_item"><a href="">Giới Thiệu</a></li>
+                                    <li className="nav_item"><Link to="/TrangChu" style={{color: keyMenu === 'Trang Chủ' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Trang Chủ')}>Trang Chủ</Link></li>
+                                    <li className="nav_item"><a href="" style={{color: keyMenu === 'Giới Thiệu' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Giới Thiệu')}>Giới Thiệu</a></li>
                                     <li className="nav_item sp">
-                                        <Link to="/AllSanPham">Sản Phẩm <i className="fa fa-caret-down" /></Link>
+                                        <Link to="/AllSanPham" style={{color: keyMenu === 'Sản Phẩm' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Sản Phẩm')}>Sản Phẩm <i className="fa fa-caret-down" /></Link>
                                         <ul className="nav_item_sanpham text-center">
                                             {loai.map((val, index) => (<li key={val._id.toString()}><Link to={"/LoaiCoffee/_id=" + val._id}>{val.tenloai}</Link></li>))}
                                         </ul>
@@ -76,9 +81,9 @@ const MenuCoffeeHouse = () => {
                                     <li><a href><img src="https://bizweb.dktcdn.net/100/346/521/themes/818256/assets/logo.png?1619594503248" alt="" /></a></li>
                                 </ul>
                                 <ul className="header_nav_right">
-                                    <li className="nav_item"><a href="">Dịch Vụ</a></li>
-                                    <li className="nav_item"><a href="">Tin Tức</a></li>
-                                    <li className="nav_item"><a href="">Liên Hệ</a></li>
+                                    <li className="nav_item"><a href="" style={{color: keyMenu === 'Tin Tức' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Tin Tức')}>Dịch Vụ</a></li>
+                                    <li className="nav_item"><a href="" style={{color: keyMenu === 'Tin Tức' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Tin Tức')}>Tin Tức</a></li>
+                                    <li className="nav_item"><a href=""style={{color: keyMenu === 'Liên Hệ' ? '#e7b45a': ''}}   onClick = {() => onActiveMenu('Liên Hệ')}>Liên Hệ</a></li>
                                 </ul>
                                 <ul className="GioHang flex text-right">
                                     <li className="nav_icon search"><i className="fas fa-search" />

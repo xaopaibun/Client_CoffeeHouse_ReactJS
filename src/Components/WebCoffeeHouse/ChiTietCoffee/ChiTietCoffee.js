@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+
 import React, { useState } from 'react';
 const ChiTietCoffee = () => {
     const dispatch = useDispatch();
@@ -6,7 +7,7 @@ const ChiTietCoffee = () => {
     const ItemCoffee = useSelector(state => state.HomeReduce.ItemCoffee)
     const addCart = (ItemCoffee) =>{
         dispatch({type: 'addcart', item : {_id : ItemCoffee._id, TenCoffee : ItemCoffee.TenCoffee , images : ItemCoffee.images[0], gia :ItemCoffee.gia , soluong : sl }})
-        setsl(1);
+       
     }
 
     const onTang = () =>{
@@ -42,7 +43,7 @@ const ChiTietCoffee = () => {
                                     <button type="button" className="btn botron" id="tang" onClick={()=>onTang()}>+</button>
                                 </div>
                                 <div className="right">
-                                    <input type="submit" onClick ={() => addCart(ItemCoffee)} className="form-control btndathang" name id aria-describedby="helpId" placeholder value="Đặt Hàng" />
+                                    <input type="submit" data-toggle="modal" data-target="#exampleModal" onClick ={() => addCart(ItemCoffee)} className="form-control btndathang" name id aria-describedby="helpId" placeholder value="Đặt Hàng" />
                                 </div>
                             </div>
                         

@@ -1,14 +1,26 @@
-
 import Footer from "../Footer";
 import { useDispatch, useSelector } from "react-redux";
 import MenuCoffeeHouse from "../Menu";
+import { useHistory } from "react-router-dom";
+import { thanhtoan } from "../../../services";
+
 const Cart = () => {
+    const history = useHistory();
+
     const cart = useSelector(state => state.HomeReduce.cart)
+
     const dispatch = useDispatch();
-    const removeItem = (_id) =>{
-        dispatch({type: "RemoveCart" , _id : _id})
+
+    const removeItem = (_id) => {
+        dispatch({ type: "RemoveCart", _id: _id })
     }
-    dispatch({type: "SumMoneyCart"})
+
+    dispatch({ type: "SumMoneyCart" })
+
+
+    const BackHome = () => {
+        history.push('/TrangChu');
+    }
     return (
         <div>
 
@@ -38,10 +50,10 @@ const Cart = () => {
                                 {
                                     cart.map((val, index) => {
                                         return (
-                                            <tr className="text-center" key = {val._id.toString()}>
+                                            <tr className="text-center" key={val._id.toString()}>
                                                 <td scope="row">{index + 1}</td>
                                                 <td><img width="100px" height="100px" src={val.images} alt="" /></td>
-                                                <td>{val.TenCoffee} <br /><a href='' style={{color:'green'}} onClick={(e) => {
+                                                <td>{val.TenCoffee} <br /><a href='' style={{ color: 'green' }} onClick={(e) => {
                                                     e.preventDefault();
                                                     removeItem(val._id);
                                                 }}>Xóa</a></td>
@@ -53,14 +65,13 @@ const Cart = () => {
                                         );
                                     })
                                 }
-                                <tr>
+                                <tr style={{ justifyContent: 'center' }}>
                                     <td scope="row"></td>
-                                    
+                                    <td><input id="btnDangKy" onClick={() => BackHome()} className="Xem_Them" type="submit" value="Tiếp tục mua hàng" /></td>
+                                    <td>&nbsp;</td>
                                     <td><b>Tổng tiền thanh toán : </b></td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
                                     <td><b>{ } VNĐ</b></td>
-                                    <td>&nbsp;</td>
+                                    <td><input id="btnDangKy" onClick={() => history.push('/FormDienThongTin')} className="submit" type="submit" value="Tiến hành thanh toán" /></td>
                                 </tr>
                             </tbody>
                         </table>
