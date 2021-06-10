@@ -24,6 +24,8 @@ import FormDienThongTin from "../Components/WebCoffeeHouse/FormDienThongTin";
 import OrderDetail from "../Components/Admin/DonHang/OrderDetail";
 import MenuQuanLyKhac from "../Components/Admin/QuanLyKhac";
 import Login from "../Components/Admin/Login";
+import AddProduct from "../Components/Admin/Coffee/AddProduct";
+import AddNews from "../Components/Admin/News/AddNews";
 
 
 export default function RouterApp() {
@@ -42,11 +44,17 @@ export default function RouterApp() {
            <Route path="/Admin/DonHang">
             <DonHang />
           </Route>
+          <Route path="/Admin/News/AddNews">
+            <AddNews />
+          </Route>
           <Route path="/Admin/MenuQuanLyKhac">
             <MenuQuanLyKhac />
           </Route>
           <Route path="/Admin/LoaiCoffee">
             <LoaiCoffee/>
+          </Route>
+          <Route path="/Admin/SanPham/AddProduct">
+            <AddProduct />
           </Route>
           <Route path="/Admin/SanPham">
             <SanPham />
