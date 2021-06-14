@@ -18,10 +18,11 @@ export default function HomeReduce(state = initialState, action) {
 
         case 'SumMoneyCart':
             let SumMoneyCart1Item = parseInt(state.cart[0].gia) * parseInt(state.cart[0].soluong);
-            let SumMoneyCartHon2Item = state.cart.reduce((accumulator, currentValue) => 
-            (accumulator.gia * parseInt(state.cart[0].soluong)) + (currentValue.gia * parseInt(state.cart[0].soluong)));
+            let SumMoneyCartHon2Item = state.cart.reduce((accumulator, currentValue) => {
+                return parseInt(accumulator) + (currentValue.gia * parseInt(currentValue.soluong))
+            }, 0);
             return { ...state, SumMoney: state.cart.length > 1 ? SumMoneyCartHon2Item : state.cart.length == 1 ? SumMoneyCart1Item : 0 }
-        
+
         case 'RemoveCart':
             return { ...state, cart: state.cart.filter((item) => item._id != action._id) }
 

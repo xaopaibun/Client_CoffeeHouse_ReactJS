@@ -16,9 +16,6 @@ const Cart = () => {
         dispatch({ type: "RemoveCart", _id: _id })
     }
 
-    
-    
-
     const BackHome = () => {
         history.push('/TrangChu');
     }
@@ -71,7 +68,7 @@ const Cart = () => {
                                     <td><input id="btnDangKy" onClick={() => BackHome()} className="Xem_Them" type="submit" value="Tiếp tục mua hàng" /></td>
                                 
                                     <td><b>Tổng tiền thanh toán : </b></td>
-                                    <td><b>{SumMoney} VNĐ</b></td>
+                                    <td><b>{FormatNumber(SumMoney)} VNĐ</b></td>
                                     <td>&nbsp;</td>
                                     <td><input id="btnDangKy" onClick={() => history.push('/FormDienThongTin')} className="submit" type="submit" value="Tiến hành thanh toán" /></td>
                                 </tr>

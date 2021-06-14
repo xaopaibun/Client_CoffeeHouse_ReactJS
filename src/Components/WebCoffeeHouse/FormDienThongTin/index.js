@@ -12,12 +12,14 @@ const FormDienThongTin = () => {
     const [address, setaddress] = React.useState();
     const [gmail, setgmail] = React.useState();
     const [note, setnote] = React.useState();
-    const [sumMoney, setsumMoney] = React.useState();
+
     const history = useHistory();
     const OrderProducts = useSelector(state => state.HomeReduce.cart)
+
+    const SumMoney = useSelector(state => state.HomeReduce.SumMoney)
     const dispatch = useDispatch();
     const onThanhToan = () => {
-        let dulieu = { fullname: fullname, phone: phone, gmail: gmail, note: note, address: address, OrderProducts: OrderProducts, sumMoney: sumMoney };
+        let dulieu = { fullname: fullname, phone: phone, gmail: gmail, note: note, address: address, OrderProducts: OrderProducts, sumMoney: SumMoney };
         thanhtoan(dulieu).then(function (response) {
             alert('Đặt hàng thành công, thông tin chi tiết sẽ được gửi vào gmail của bạn');
             history.push('/TrangChu');
@@ -27,7 +29,6 @@ const FormDienThongTin = () => {
             setaddress('');
             setgmail('');
             setnote('');
-            setsumMoney('');
         }).catch(function (error) {
             // handle error
             console.log(error);
