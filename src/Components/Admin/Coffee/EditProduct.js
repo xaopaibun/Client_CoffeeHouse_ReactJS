@@ -8,7 +8,7 @@ const AddProduct = () => {
     const [Image, setImage] = React.useState('');
     const [Gia, setGia] = React.useState();
     const [MoTa, setMoTa] = React.useState();
-    const [Loai, setLoai] = React.useState('L01');
+    const [Loai, setLoai] = React.useState();
     const [ThongTin, setThongTin] = React.useState();
     const [ThuongHieu, setThuongHieu] = React.useState();
     const [SoLuong, setSoLuong] = React.useState();
@@ -27,7 +27,6 @@ const AddProduct = () => {
         axios.get('https://servercoffeehouse.herokuapp.com/getloai')
             .then(function (response) {
                 setloai(response.data);
-                console.log(response.data)
             })
             .catch(function (error) {
                 // handle error
@@ -81,7 +80,7 @@ const AddProduct = () => {
                 alert('Thêm thành công')
             })
             .catch(function (error) {
-                alert('Thêm Lỗi rồi')
+                alert('lỗi', error)
             });
     }
 

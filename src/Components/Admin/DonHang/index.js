@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom"; 
 import { HandleTime } from '../../../config/Until';
 import Menu from "../Home/Menu";
 import MenuBar from '../MenuBar';
@@ -66,11 +66,11 @@ const DonHang = () => {
                 </div>
                 <div className="col-xl-10">
                     <div className='container'>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Danh Sách Các Đơn Hàng</li>
-                            </ol>
+                        <nav className="navbar navbar-light bg-light">
+                            <div className="form-inline">
+                                <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </div>
                         </nav>
                         <table class="table table-hover" >
                             <thead>

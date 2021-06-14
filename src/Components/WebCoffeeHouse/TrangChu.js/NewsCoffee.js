@@ -27,8 +27,8 @@ const NewsCoffee = () => {
                                             </div>
                                             <div className="col-xl-6">
                                                 <p style={{ color: '#707070' }}><i className="fas fa-calendar-alt" style={{ color: '#e7b45a' }} /> {HandleTime(val.time)}</p>
-                                                <h3><a href="ChiTietTinTuc.php?iDTinTuc=<?=$row['iDTinTuc']?>">{val.titleNews}</a></h3>
-                                                <div className="content">{val.Content}</div>
+                                                <h3><a href =''>{val.titleNews}</a></h3>
+                                                <div className="content" dangerouslySetInnerHTML={{ __html: val.Content}} ></div>
                                             </div>
                                         </div>
                                     </div>

@@ -1,5 +1,10 @@
 import Menu from "../Home/Menu";
 import MenuBar from "../MenuBar";
+import {
+    BrowserRouter as Router,
+    Link,
+    useParams, useHistory
+} from "react-router-dom";
 const MenuQuanLyKhac = () => {
     return (
         <div>
@@ -14,20 +19,20 @@ const MenuQuanLyKhac = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-3">
-                                <div className="card">
+                                <Link to = '/Admin/MenuQuanLyKhac/QuanLyGioiThieu' className="card">
                                     <img className="card-img-top" src="https://icapi.org/wp-content/uploads/2019/11/ly-ca-phe-dep-10.jpg" alt="" />
                                     <div className="card-body">
                                         <h4 className="card-title">Quản lý content giới thiệu shop</h4>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="col-md-3">
-                                <div className="card">
+                                <Link to = '/Admin/MenuQuanLyKhac/QuanLyImagesShop'  className="card">
                                     <img className="card-img-top" src="https://res.klook.com/image/upload/fl_lossy.progressive/q_65/c_fill,w_1360/blogvn/2018/09/quan-cafe-dep-seoul.jpg" alt="" />
                                     <div className="card-body">
                                         <h4 className="card-title">Quản lý hình ảnh coffee house</h4>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="col-md-3">
                                 <div className="card">

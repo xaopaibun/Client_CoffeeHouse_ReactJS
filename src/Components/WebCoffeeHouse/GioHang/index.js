@@ -3,20 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import MenuCoffeeHouse from "../Menu";
 import { useHistory } from "react-router-dom";
 import { thanhtoan } from "../../../services";
+import { FormatNumber, Url_Image } from "../../../config/Until";
 
 const Cart = () => {
     const history = useHistory();
 
     const cart = useSelector(state => state.HomeReduce.cart)
-
+    const SumMoney = useSelector(state => state.HomeReduce.SumMoney)
     const dispatch = useDispatch();
 
     const removeItem = (_id) => {
         dispatch({ type: "RemoveCart", _id: _id })
     }
 
-    dispatch({ type: "SumMoneyCart" })
-
+    
+    
 
     const BackHome = () => {
         history.push('/TrangChu');
@@ -52,14 +53,14 @@ const Cart = () => {
                                         return (
                                             <tr className="text-center" key={val._id.toString()}>
                                                 <td scope="row">{index + 1}</td>
-                                                <td><img width="100px" height="100px" src={val.images} alt="" /></td>
+                                                <td><img width="100px" height="100px" src={Url_Image + val.images} alt="" /></td>
                                                 <td>{val.TenCoffee} <br /><a href='' style={{ color: 'green' }} onClick={(e) => {
                                                     e.preventDefault();
                                                     removeItem(val._id);
                                                 }}>Xóa</a></td>
                                                 <td>{Intl.NumberFormat().format(val.gia)} VNĐ</td>
                                                 <td style={{ width: '20px' }}>{val.soluong}</td>
-                                                <td>{Intl.NumberFormat().format(parseInt(val.gia) * parseInt(val.soluong))} VNĐ</td>
+                                                <td>{FormatNumber(parseInt(val.gia) * parseInt(val.soluong))} VNĐ</td>
 
                                             </tr>
                                         );
@@ -68,9 +69,10 @@ const Cart = () => {
                                 <tr style={{ justifyContent: 'center' }}>
                                     <td scope="row"></td>
                                     <td><input id="btnDangKy" onClick={() => BackHome()} className="Xem_Them" type="submit" value="Tiếp tục mua hàng" /></td>
-                                    <td>&nbsp;</td>
+                                
                                     <td><b>Tổng tiền thanh toán : </b></td>
-                                    <td><b>{ } VNĐ</b></td>
+                                    <td><b>{SumMoney} VNĐ</b></td>
+                                    <td>&nbsp;</td>
                                     <td><input id="btnDangKy" onClick={() => history.push('/FormDienThongTin')} className="submit" type="submit" value="Tiến hành thanh toán" /></td>
                                 </tr>
                             </tbody>

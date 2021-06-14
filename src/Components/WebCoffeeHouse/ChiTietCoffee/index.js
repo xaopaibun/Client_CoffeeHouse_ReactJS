@@ -11,7 +11,6 @@ import {
 } from "react-router-dom";
 import ModalCart from '../Modals/ModalCart';
 const Coffee = () => {
-    //const id = useSelector(state => state.HomeReduce.id)
     let { id } = useParams();
     const dispatch = useDispatch();
     React.useEffect(() => {
@@ -19,17 +18,14 @@ const Coffee = () => {
             dispatch({ type: "ChiTietCoffee", data: response.data })
         }).catch(function (error) {
             console.log(error);
-        }).then(function () {
-        });
-    }, []);
+        })
+    }, [id]);
     return (
         <div>
             <div className="headertop">
                 <MenuCoffeeHouse />
             </div>
-            <div style={{ height: '50px' }}>
-
-            </div>
+          
             <ChiTietCoffee />
             <ModalCart/>
             <Footer />

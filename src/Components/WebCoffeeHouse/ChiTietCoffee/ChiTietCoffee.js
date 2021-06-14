@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import React, { useState } from 'react';
+import { FormatNumber, Url_Image } from "../../../config/Until";
 const ChiTietCoffee = () => {
     const dispatch = useDispatch();
     const [sl, setsl] = useState(1);
     const ItemCoffee = useSelector(state => state.HomeReduce.ItemCoffee)
     const addCart = (ItemCoffee) =>{
-        dispatch({type: 'addcart', item : {_id : ItemCoffee._id, TenCoffee : ItemCoffee.TenCoffee , images : ItemCoffee.images[0], gia :ItemCoffee.gia , soluong : sl }})
-       
+        dispatch({type: 'addcart', item : {_id : ItemCoffee._id, TenCoffee : ItemCoffee.TenCoffee , images : ItemCoffee.images, gia :ItemCoffee.gia , soluong : sl }})
+        dispatch({ type: "SumMoneyCart" })
     }
 
     const onTang = () =>{
@@ -23,16 +24,16 @@ const ChiTietCoffee = () => {
             <div className="container">
                 <div className="row">
 
-                    <div className="col-xl-6">
-                        <img src={ItemCoffee?.images[0]} width="100%" height="100%" alt=""/>
+                    <div className="col-xl-6" style={{margin: 'auto'}}>
+                        <img src={ Url_Image +ItemCoffee?.images} width="90%" height="90%" alt=""/>
                     </div>
-                    <div className="col-xl-6">
+                    <div className="col-xl-6"  style={{margin: 'auto'}}>
                         <div className="title">
                             <h2 style={{ color: '#252525', fontSize: '28px', lineHeight: 'normal', margin: '0px', marginTop: '0px', marginBottom: '8px', fontWeight: 600 }}> {ItemCoffee?.TenCoffee} </h2>
-                            <p style={{ fontSize: '28px', lineHeight: '28px', display: 'inline-block', color: '#e7b45a', fontWeight: 900 }}>{ItemCoffee?.gia} VNĐ </p>
+                            <p style={{ fontSize: '28px', lineHeight: '28px', display: 'inline-block', color: '#e7b45a', fontWeight: 900 }}>{FormatNumber(ItemCoffee?.gia)} ₫ </p>
                         </div>
                         <div className="status">
-                            <p>Thương Hiệu: {ItemCoffee?.thuonghieu} </p>
+                            <p>Thương Hiệu: <span style={{color: '#707070'}}> {ItemCoffee?.thuonghieu}</span> </p>
                         </div>
                       
                             <div className="block_chonsp">
@@ -54,7 +55,7 @@ const ChiTietCoffee = () => {
                     </div>
                     <div className="MoTaChiTietSanPham">
                         <h2 style={{ borderBottom: 'solid 1px #ebebeb', paddingBottom: '15px' }}>Mô tả sản phẩm | Đánh Gía </h2>
-                        <p style={{ color: '#707070', fontStyle: '14px' }}>{ItemCoffee?.mota} </p>
+                        <p style={{ color: '#707070', fontStyle: '14px' }} >{ItemCoffee?.mota}</p>
                     </div>
                 </div>
             </div>

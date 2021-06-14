@@ -69,11 +69,11 @@ const MenuCoffeeHouse = () => {
                             <nav className="header_nav">
                                 <ul className="header_nav_left">
                                     <li className="nav_item"><Link to="/TrangChu" style={{color: keyMenu === 'Trang Chủ' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Trang Chủ')}>Trang Chủ</Link></li>
-                                    <li className="nav_item"><a href="" style={{color: keyMenu === 'Giới Thiệu' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Giới Thiệu')}>Giới Thiệu</a></li>
+                                    <li className="nav_item"><Link to = '/GioiThieu' style={{color: keyMenu === 'Giới Thiệu' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Giới Thiệu')}>Giới Thiệu</Link></li>
                                     <li className="nav_item sp">
                                         <Link to="/AllSanPham" style={{color: keyMenu === 'Sản Phẩm' ? '#e7b45a': ''}} onClick = {() => onActiveMenu('Sản Phẩm')}>Sản Phẩm <i className="fa fa-caret-down" /></Link>
                                         <ul className="nav_item_sanpham text-center">
-                                            {loai.map((val, index) => (<li key={val._id.toString()}><Link to={"/LoaiCoffee/_id=" + val._id}>{val.tenloai}</Link></li>))}
+                                            {loai.map((val, index) => (<li key={val._id.toString()}><Link to={"/idLoai="+val._id}>{val.tenloai}</Link></li>))}
                                         </ul>
                                     </li>
                                 </ul>

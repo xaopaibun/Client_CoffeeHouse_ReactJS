@@ -10,7 +10,7 @@ import SanPham from "../Components/Admin/Coffee/SanPham";
 import LoaiCoffee from "../Components/Admin/LoaiCoffee";
 import Menu from "../Components/Admin/Home/Menu";
 import DonHang from "../Components/Admin/DonHang";
-import NCC from "../Components/Admin/NCC";
+import NCC from "../Components/Admin/BookingTableOnline";
 import TrangChu from "../Components/WebCoffeeHouse/TrangChu.js";
 import Coffee from "../Components/WebCoffeeHouse/ChiTietCoffee";
 import DangNhap from "../Components/WebCoffeeHouse/DangNhap";
@@ -26,7 +26,15 @@ import MenuQuanLyKhac from "../Components/Admin/QuanLyKhac";
 import Login from "../Components/Admin/Login";
 import AddProduct from "../Components/Admin/Coffee/AddProduct";
 import AddNews from "../Components/Admin/News/AddNews";
-
+import News from "../Components/Admin/News";
+import BookingTableOnline from "../Components/Admin/BookingTableOnline";
+import Home from "../Components/Admin/Home/Menu";
+import QuanLyProduct from "../Components/Admin/Coffee";
+import User from "../Components/Admin/User";
+import QuanLyGioiThieu from "../Components/Admin/QuanLyKhac/QuanLyGioiThieu";
+import QuanLyImagesShop from "../Components/Admin/QuanLyKhac/QuanLyImagesShop";
+import GioiThieu from "../Components/WebCoffeeHouse/ContentWeb/GioiThieu";
+import SanPhamTheoLoai from "../Components/WebCoffeeHouse/SanPham/SanPhamTheoLoai";
 
 export default function RouterApp() {
   return (
@@ -47,17 +55,35 @@ export default function RouterApp() {
           <Route path="/Admin/News/AddNews">
             <AddNews />
           </Route>
+          <Route path="/Admin/BookingTableOnline">
+            <BookingTableOnline/>
+          </Route>
+          <Route path="/Admin/User">
+            <User />
+          </Route>
+          <Route path="/Admin/News">
+            <News />
+          </Route>
+          <Route path="/Admin/MenuQuanLyKhac/QuanLyGioiThieu">
+            <QuanLyGioiThieu />
+          </Route>
+          <Route path="/Admin/MenuQuanLyKhac/QuanLyImagesShop">
+            <QuanLyImagesShop />
+          </Route>
           <Route path="/Admin/MenuQuanLyKhac">
             <MenuQuanLyKhac />
           </Route>
-          <Route path="/Admin/LoaiCoffee">
+          <Route path="/Admin/LoaiSanPham">
             <LoaiCoffee/>
           </Route>
           <Route path="/Admin/SanPham/AddProduct">
             <AddProduct />
           </Route>
           <Route path="/Admin/SanPham">
-            <SanPham />
+            <QuanLyProduct />
+          </Route>
+          <Route path="/Admin/Home">
+            <Home />
           </Route>
           <Route path="/Admin">
             <QuanTri />
@@ -71,6 +97,9 @@ export default function RouterApp() {
           <Route path="/AllSanPham">
             <AllSanPham />
           </Route>
+          <Route path={"/idLoai=:_id"} >
+            <SanPhamTheoLoai />
+          </Route>
           <Route path="/Cart">
             <Cart />
           </Route>
@@ -82,6 +111,9 @@ export default function RouterApp() {
           </Route>
           <Route path="/FormDienThongTin">
             <FormDienThongTin />
+          </Route>
+          <Route path="/GioiThieu">
+            <GioiThieu />
           </Route>
           <Route path="/TrangChu">
             <TrangChu />
