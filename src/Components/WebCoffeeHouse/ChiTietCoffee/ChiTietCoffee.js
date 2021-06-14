@@ -39,7 +39,6 @@ const ChiTietCoffee = () => {
                             <div className="block_chonsp">
                                 <div className="left">
                                     <button type="button" className="btn botron" id="giam" onClick={()=>onGiam()}>-</button>
-                                    {/* <input type="text" className="form-control botron" name="" defaultValue={1} id="soluong" aria-describedby="helpId" placeholder /> */}
                                     <div className="botron text-center"><p>{sl}</p></div>
                                     <button type="button" className="btn botron" id="tang" onClick={()=>onTang()}>+</button>
                                 </div>

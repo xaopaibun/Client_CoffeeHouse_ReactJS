@@ -43,7 +43,7 @@ const FormDienThongTin = () => {
 
             <div class="row">
                 <div class="col-xl-8">
-                    <div className='container' style={{padding: '40px'}}>
+                    <div className='container' style={{ padding: '40px' }}>
                         <h2> <Link to='/TrangChu' style={{ color: '#2a9dcc', fontSize: '40px', cursor: 'pointer' }}>Coffee House</Link></h2>
                         <div class="row">
                             <div class="col-xl-6">
@@ -74,11 +74,10 @@ const FormDienThongTin = () => {
                                 <div>
                                     <h5>Vận Chuyển</h5>
                                     <div className="card-body">
-                                    <div className="card">
-                                    <h5 className="card-title">Giao hàng tận nơi 40.000 VNĐ</h5>
-                                            
+                                        <div className="card">
+                                            <h5 className="card-title">Giao hàng tận nơi 40.000 VNĐ</h5>
                                         </div>
-                                        </div>
+                                    </div>
                                     <h5>Thanh Toán</h5>
                                     <div className="card">
                                         <div className="card-body">
@@ -94,6 +93,8 @@ const FormDienThongTin = () => {
                 </div>
                 <div class="col-xl-4" style={{ backgroundColor: '#fafafa', padding: '20px' }}>
                     <h3>Đơn hàng (4 sản phẩm)</h3>
+                    
+                    
                     <button type="button" onClick={() => onThanhToan()} class="btn btn-primary btn-lg">Đặt hàng</button>
 
                 </div>

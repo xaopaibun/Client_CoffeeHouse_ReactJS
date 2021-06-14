@@ -55,7 +55,7 @@ const Cart = () => {
                                                     e.preventDefault();
                                                     removeItem(val._id);
                                                 }}>Xóa</a></td>
-                                                <td>{Intl.NumberFormat().format(val.gia)} VNĐ</td>
+                                                <td>{FormatNumber(val.gia)} VNĐ</td>
                                                 <td style={{ width: '20px' }}>{val.soluong}</td>
                                                 <td>{FormatNumber(parseInt(val.gia) * parseInt(val.soluong))} VNĐ</td>
 

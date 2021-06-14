@@ -32,12 +32,13 @@ const OrderDetail = () => {
                     </div>
 
                     <div className='container'>
-                        <p> Họ Tên : <strong>{orderProducts_iD?.fullname}</strong></p>
+                        <p>Họ Tên : <strong>{orderProducts_iD?.fullname}</strong></p>
                         <p>Phone : <strong>{orderProducts_iD?.phone}</strong></p>
                         <p>Điạ Chỉ :<strong>{orderProducts_iD?.address}</strong> </p>
                         <p>Gmail : <strong>{orderProducts_iD?.gmail}</strong></p>
                         <p>Thời gian đặt hàng :<strong> {HandleTime(orderProducts_iD?.date)}</strong></p>
                         <p>Ghi Chú : <strong>{orderProducts_iD?.note}</strong></p>
+                        <p>Tổng giá tiền phải trả :(Chưa tính phí ship) <strong>{orderProducts_iD?.sumMoney}</strong></p>
                         <p>Trạng thái : <strong>{orderProducts_iD?.status === true ? "Đã xử lý" : "Đang xử lý"}</strong>{orderProducts_iD?.status === false ? <button type="button" onClick={() => onSubmit(orderProducts_iD._id)} class="btn btn-outline-primary">Đánh dấu là đã xử lý đơn hàng</button> : <button type="button" class="btn btn-outline-primary">Đánh dấu là đã hủy đơn hàng</button>}</p>
                         <p>Danh sách sản phẩm đã đặt hàng : </p>
                         <table class="table">
