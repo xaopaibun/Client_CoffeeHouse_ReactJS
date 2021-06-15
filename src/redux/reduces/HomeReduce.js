@@ -29,6 +29,9 @@ export default function HomeReduce(state = initialState, action) {
         case 'Token':
             return { ...state, refreshToken: action.res.refreshToken, dataUser: action.res.result }
 
+            case "CartLocal":
+                return { ...state, cart: action.cart }
+
         case "Logout":
             return { ...state, refreshToken: null, dataUser: null }
 

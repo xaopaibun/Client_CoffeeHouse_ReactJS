@@ -2,13 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 import React, { useState } from 'react';
 import { FormatNumber, Url_Image } from "../../../config/Until";
+// import ls  from "local-storage";
 const ChiTietCoffee = () => {
     const dispatch = useDispatch();
+    // const cart = useSelector(state => state.HomeReduce.cart)
     const [sl, setsl] = useState(1);
     const ItemCoffee = useSelector(state => state.HomeReduce.ItemCoffee)
-    const addCart = (ItemCoffee) =>{
+    const addCart = async(ItemCoffee) =>{
         dispatch({type: 'addcart', item : {_id : ItemCoffee._id, TenCoffee : ItemCoffee.TenCoffee , images : ItemCoffee.images, gia :ItemCoffee.gia , soluong : sl }})
-        dispatch({ type: "SumMoneyCart" })
+       dispatch({ type: "SumMoneyCart" })
+   
     }
 
     const onTang = () =>{
@@ -19,6 +22,9 @@ const ChiTietCoffee = () => {
         setsl(sl-1)
         sl > 2 ?  setsl(sl-1) : setsl(1)
     }
+    // React.useEffect(() =>{
+    //       ls.set('cart',cart);
+    // }, [cart])
      return (
         <div>
             <div className="container">

@@ -2,26 +2,31 @@ import axios from 'axios';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom"; 
-import { HandleTime } from '../../../config/Until';
+import { HandleTime, Url_Locahost } from '../../../config/Until';
 import Menu from "../Home/Menu";
 import MenuBar from '../MenuBar';
 const DonHang = () => {
     const [DonHang, setDonHang] = React.useState([]);
+    const [Page, setPage] = React.useState();
     const dispatch = useDispatch();
     const history = useHistory();
     const GetDonHang = () => {
-        axios.get('http://localhost:5000/getorderProduct')
+        axios.get(Url_Locahost +'/getorderProduct')
             .then(function (response) {
                 setDonHang(response.data);
-                // console.log(response.data)
             })
             .catch(function (error) {
-                // handle error
                 console.log(error);
             })
-            .then(function () {
-                // always executed
-            });
+    }
+    const GetPage = () =>{
+        axios.get(Url_Locahost +'/getPageOrderProducts')
+            .then(function (response) {
+                setPage(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
     React.useEffect(() => {
         GetDonHang();
@@ -29,34 +34,32 @@ const DonHang = () => {
 
 
     const deleteOderProducts = (id) => {
-        axios.delete('http://localhost:5000/deleteorderProducts_iD/' + id)
+        axios.delete(Url_Locahost +'/deleteorderProducts_iD/' + id)
             .then(function (response) {
                 // DonHang.filter((val) => val._id !== id)
                 alert('Xóa thành công');
+                history.push('/Admin');
+                history.push('/Admin/DonHang');
             })
             .catch(function (error) {
-                // handle error
+             
                 console.log(error);
-            })
-            .then(function () {
-                // always executed
-            });
+            }
+        )
     }
 
     const getorderProducts_iD = (id) => {
-        axios.get('http://localhost:5000/getorderProducts_iD/' + id)
+        axios.get(Url_Locahost +'/getorderProducts_iD/' + id)
             .then(function (response) {
                 dispatch({ type: 'getorderProducts_iD', getorderProducts_iD: response.data[0] })
                 history.push('/Admin/DonHang/OrderDetail');
 
             })
             .catch(function (error) {
-                // handle error
+               
                 console.log(error);
             })
-            .then(function () {
-                // always executed
-            });
+        
     }
     return (
         <div>
@@ -96,7 +99,7 @@ const DonHang = () => {
                                                 <td>{val.gmail}</td>
                                                 <td>{val.address}</td>
                                                 <td>{HandleTime(val.date)}</td>
-                                                <td>{val.status == true ? 'Đã xử lý đơn hàng' : 'Chưa xử lý'}</td>
+                                                <td>{val.status == 2 ? 'Đã xử lý đơn hàng' : val.status == 1 ? 'Chưa xử lý' :'Đã Hủy'}</td>
                                                 <td style={{ width: '140px' }}>
                                                     <button type="button" className="btn btn-success" onClick={() => getorderProducts_iD(val._id)} >Xem</button>
                                                     <span> </span>

@@ -1,45 +1,58 @@
 import axios from 'axios';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { Url, Url_Locahost } from '../../../config/Until';
 import Menu from "../Home/Menu";
 import MenuBar from '../MenuBar';
 const LoaiCoffee = () => {
     const [loai, setloai] = React.useState([]);
-    const [NCC, setNCC] = React.useState([]);
-    const GetLoai = () => {
-        axios.get('http://localhost:5000/getloai')
-            .then(function (response) {
-                setloai(response.data);
-              
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .then(function () {
-                // always executed
-            });
-    }
-    // const GetNCC = () => {
-    //     axios.get('https://servercoffeehouse.herokuapp.com/getNCC')
-    //         .then(function (response) {
-    //             setNCC(response.data);
-    //             console.log(response.data)
-    //         })
-    //         .catch(function (error) {
-    //             // handle error
-    //             console.log(error);
-    //         })
-    //         .then(function () {
-    //             // always executed
-    //         });
-    // }
+    const [name, setname] = React.useState();
+    const history = useHistory();
 
     React.useEffect(() => {
-        GetLoai();
-        // GetNCC();
+        axios.get(Url_Locahost + '/getloai')
+        .then(function (response) {
+            setloai(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }, []);
+
     const onAdd = () =>{
-        
+        axios.post(Url_Locahost + '/addloaicoffee', {tenloai : name})
+        .then(function (response) {
+            alert('Thêm loại mới thành công');
+            history.push('/Admin');
+            history.push('/Admin/LoaiSanPham');
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    const onEdit = () =>{
+        axios.put(Url_Locahost + '/updateloai', {tenloai : name})
+        .then(function (response) {
+            alert('Cập nhật thành công');
+            history.push('/Admin');
+            history.push('/Admin/LoaiSanPham');
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    const onDelete = (id) =>{
+        axios.delete(Url_Locahost + '/xoaloai/' + id)
+        .then(function (response) {
+            alert('Xóa thành công');
+            history.push('/Admin');
+            history.push('/Admin/LoaiSanPham');
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }
     return (
         <div>
@@ -52,21 +65,10 @@ const LoaiCoffee = () => {
                         <div class="row">
                             <div class="col-xl-6">
                                 <div className="form-group">
-                                    <input type="text" name="" id="" class="form-control" placeholder="Nhập Tên Loại Coffee" aria-describedby="helpId" />
+                                    <input type="text" onChange={(val) => setname(val.target.value)} className="form-control" placeholder="Nhập Tên Loại Coffee" aria-describedby="helpId" />
                                 </div>
                             </div>
-                            {/* <div class="col-xl-4">
-                                <div className="form-group">
-
-                                    <select className="form-control" >
-                                        {
-                                            NCC && NCC.map((val) => (
-                                                <option value={val._id} >{val.tenncc}</option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                            </div> */}
+                    
                             <div class="col-xl-6">
                                 <button type="button" className="btn btn-info btn-lg" onClick = {() => onAdd()} >Thêm Loại Cà Phê</button>
                             </div>
@@ -76,7 +78,6 @@ const LoaiCoffee = () => {
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên Loại Coffee</th>
-                                    {/* <th>Tên Nhà Cung Cấp</th> */}
                                     <th>Thao Tác</th>
                                 </tr>
                             </thead>
@@ -87,11 +88,10 @@ const LoaiCoffee = () => {
                                             <tr key={val._id.toString()}>
                                                 <td scope="row">{index + 1}</td>
                                                 <td>{val.tenloai}</td>
-                                                {/* <td>{val._idNCC}</td> */}
                                                 <td >
-                                                    <button type="button" className="btn btn-success" ><i className="far fa-trash-alt"></i></button>
+                                                    <button type="button" className="btn btn-success" onClick={() => onDelete(val._id)}><i className="far fa-trash-alt" ></i></button>
                                                     <span> </span>
-                                                    <button type="button" className="btn btn-info"><i className="fas fa-edit"></i></button>
+                                                    <button type="button" className="btn btn-info" onClick={() => onEdit(val._id)}><i className="fas fa-edit"></i></button>
                                                 </td>
                                             </tr>
                                         );

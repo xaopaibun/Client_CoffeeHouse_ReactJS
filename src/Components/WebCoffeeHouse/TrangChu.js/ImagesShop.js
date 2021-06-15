@@ -7,7 +7,6 @@ const ImagesShop = () =>{
     <h2 className="The_h2  wow animate__bounceInDown" data-wow-duration="1s" data-wow-delay="2s" data-wow-offset={50}>HÌNH ẢNH QUÁN CAFE</h2>
     <div className="row">
       <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-          
         <div className="khoi_imgtrai wow animate__rollIn" data-wow-duration="1s" data-wow-delay="1s" data-wow-offset={50}>
           <img src="https://bizweb.dktcdn.net/100/346/521/themes/818256/assets/gallery_big.jpg?1619594503248" alt="" className="img-responsive img_img_big" />
         </div>

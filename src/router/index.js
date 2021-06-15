@@ -25,6 +25,7 @@ import OrderDetail from "../Components/Admin/DonHang/OrderDetail";
 import MenuQuanLyKhac from "../Components/Admin/QuanLyKhac";
 import Login from "../Components/Admin/Login";
 import AddProduct from "../Components/Admin/Coffee/AddProduct";
+import EditProduct from "../Components/Admin/Coffee/EditProduct";
 import AddNews from "../Components/Admin/News/AddNews";
 import News from "../Components/Admin/News";
 import BookingTableOnline from "../Components/Admin/BookingTableOnline";
@@ -75,6 +76,9 @@ export default function RouterApp() {
           </Route>
           <Route path="/Admin/LoaiSanPham">
             <LoaiCoffee/>
+          </Route>
+          <Route path="/Admin/SanPham/EditProduct/:id">
+            <EditProduct />
           </Route>
           <Route path="/Admin/SanPham/AddProduct">
             <AddProduct />

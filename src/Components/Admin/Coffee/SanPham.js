@@ -3,15 +3,17 @@ import axios from 'axios';
 import React from 'react';
 
 import Menu from '../Home/Menu';
-import { useHistory } from "react-router-dom";
+import { useHistory , Link} from "react-router-dom";
 import { FormatNumber, Url_Image } from '../../../config/Until';
+import { useDispatch } from 'react-redux';
+import { getdatapage , getdatapage1} from '../../../services';
 const SanPham = () => {
     const [dulieu, setdulieu] = React.useState([]);
     const history = useHistory();
     const [page, setpage] = React.useState();
     const GetCoffee = (e, val) => {
         e.preventDefault();
-        axios.get('http://localhost:5000/getdata/page=' + val)
+        getdatapage(val)
             .then(function (response) {
                 setdulieu(response.data);
             })
@@ -21,7 +23,7 @@ const SanPham = () => {
     }
 
     React.useEffect(() => {
-        axios.get('http://localhost:5000/getdata/page=1')
+        getdatapage1()
             .then(function (response) {
                 setdulieu(response.data);
             })
@@ -40,16 +42,20 @@ const SanPham = () => {
 
     const Xoa = (id) => {
         axios.delete('https://servercoffeehouse.herokuapp.com/xoa/' + id).then(function (response) {
-            console.log(response);
             setdulieu(dulieu.filter(item => item._id !== id));
         }).catch(function (error) {
             console.log(error);
         });
     }
+
     let items = [];
+
     for (let number = 1; number <= page; number++) {
         items.push(number);
     }
+   
+   
+
     const DuLieuCoffee = () => {
         return (
             <div className="table-responsive">
@@ -68,7 +74,7 @@ const SanPham = () => {
                     </thead>
                     <tbody id="body_table" className='text-center'>
                         {
-                            dulieu && dulieu.map((val, index) => {
+                            dulieu && dulieu?.map((val, index) => {
                                 return (
                                     <tr key={val._id.toString()} style={{ height: '80px' }} >
                                         <td  scope="row">{index + 1}</td>
@@ -78,10 +84,10 @@ const SanPham = () => {
                                         <td><img width="100px" height="100px" src={ Url_Image + val.images} alt={'Cà Phê ' +  val.TenCoffee} /></td>
                                         <td>{val.soluong}</td>
                                         <td>{FormatNumber(val.gia)} VNĐ</td>
-                                        <td >
+                                        <td>
                                             <button type="button" className="btn btn-success" onClick={() => Xoa(val._id)}><i className="far fa-trash-alt"></i></button>
                                             <span> </span>
-                                            <button type="button" className="btn btn-info" data-toggle="modal" data-target="#modelId"><i className="fas fa-edit"></i></button>
+                                            <Link to={'/Admin/SanPham/EditProduct/' + val._id}><button type="button" className="btn btn-info" data-toggle="modal" data-target="#modelId" ><i className="fas fa-edit"></i></button></Link>
                                         </td>
                                     </tr>
                                 );

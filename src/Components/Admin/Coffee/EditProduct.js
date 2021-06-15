@@ -2,16 +2,20 @@ import React from 'react';
 import axios from 'axios';
 
 import CKEditor from 'ckeditor4-react';
-
-const AddProduct = () => {
+import MenuBar from "../MenuBar";
+import { getCoffee, updateCoffee } from '../../../services';
+import { useHistory, useParams } from 'react-router-dom';
+import { Url_Image } from '../../../config/Until';
+const EditProduct = () => {
+    const [data, setdata] = React.useState();
     const [Ten, setTen] = React.useState();
-    const [Image, setImage] = React.useState('');
-    const [Gia, setGia] = React.useState();
-    const [MoTa, setMoTa] = React.useState();
+    const [Image, setImage] = React.useState();
+    const [Gia, setGia] = React.useState(data?.gia);
+    const [MoTa, setMoTa] = React.useState(data?.mota);
     const [Loai, setLoai] = React.useState();
-    const [ThongTin, setThongTin] = React.useState();
-    const [ThuongHieu, setThuongHieu] = React.useState();
-    const [SoLuong, setSoLuong] = React.useState();
+    const [ThongTin, setThongTin] = React.useState(data?.thongtin);
+    const [ThuongHieu, setThuongHieu] = React.useState(data?.thuonghieu);
+    const [SoLuong, setSoLuong] = React.useState(data?.soluong);
     const isChangeTen = val => setTen(val.target.value);
 
     const isChangeLoai = val => setLoai(val.target.value);
@@ -22,24 +26,30 @@ const AddProduct = () => {
     const isChangeSoLuong = val => setSoLuong(val.target.value);
     const [loai, setloai] = React.useState([]);
 
-
-    const GetLoai = () => {
-        axios.get('https://servercoffeehouse.herokuapp.com/getloai')
-            .then(function (response) {
-                setloai(response.data);
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .then(function () {
-                // always executed
-            });
-    }
-
+    let { id } = useParams();
+    const history = useHistory();
+    
     React.useEffect(() => {
-        GetLoai();
-    }, []);
+        axios.get('https://servercoffeehouse.herokuapp.com/getloai').then(function (response) {
+            setloai(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        })
+
+        getCoffee(id).then(function (response) {
+            setTen(response.data.TenCoffee)
+            setImage(response.data.images);
+            setLoai(response.data._idloai);
+            setMoTa(response.data.mota);
+            setSoLuong(response.data.soluong);
+            setThuongHieu(response.data.thuonghieu);
+            setThongTin(response.data.thongtin);
+            setGia(response.data.gia)
+           // setdata(response.data)
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }, [id]);
 
     const onEditorChange = (evt) => {
         setMoTa(evt.editor.getData());
@@ -66,25 +76,22 @@ const AddProduct = () => {
         })
     }
 
-
-    const ClickSubmit = async (evt) => {
+    const ClickSubmit = (evt) => {
         evt.preventDefault();
         if (Image == '') {
             alert('Bạn chưa chọn file.')
             return;
         }
-
-        let dulieucanthem = await { _id: Math.random().toString(), ten: Ten, images: Image, gia: Gia, mota: MoTa, thongtin: ThongTin, thuonghieu: ThuongHieu, soluong: SoLuong, _idloai: Loai };
-        await axios.post('http://localhost:5000/addCoffee', dulieucanthem)
-            .then(function (response) {
-                alert('Thêm thành công')
-            })
-            .catch(function (error) {
+        let dulieucanthem = { ten: Ten, images: Image, gia: Gia, mota: MoTa, thongtin: ThongTin, thuonghieu: ThuongHieu, soluong: SoLuong, _idloai: Loai };
+        updateCoffee(id,dulieucanthem).then(function (response) {
+            alert('Update thành công');
+            history.push('/Admin/SanPham')
+        }).catch(function (error) {
                 alert('lỗi', error)
-            });
+        });
     }
 
-    const Add = () => {
+    const Update = () => {
         return (
             <div>
                 <div className='container'>
@@ -94,11 +101,11 @@ const AddProduct = () => {
                             <div className='col-6'>
                                 <div className="form-group">
                                     <label htmlFor>Tên Coffee </label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeTen(val)} placeholder="Nhập Tên Coffee" />
+                                    <input type="text" value={Ten} className="form-control" onChange={(val) => isChangeTen(val)} placeholder="Nhập Tên Coffee" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Loại Coffee </label>
-                                    <select className="form-control" name="LoaiCoffee" id="LoaiCoffee" onChange={(val) => isChangeLoai(val)} >
+                                    <select className="form-control" value={Loai} name="LoaiCoffee" id="LoaiCoffee" onChange={(val) => isChangeLoai(val)} >
                                         {
                                             loai && loai.map((val) => (
                                                 <option value={val._id} >{val.tenloai}</option>
@@ -108,11 +115,11 @@ const AddProduct = () => {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Hình Ảnh Coffee</label>
-                                    <input type="file" onChange={(evt) => onChangeFile(evt)} className="form-control-file" name="images" placeholder aria-describedby="fileHelpId" />
+                                    <input type="file"  onChange={(evt) => onChangeFile(evt)} className="form-control-file" name="images" placeholder aria-describedby="fileHelpId" />
                                     {
                                         Image !== '' ?
                                             <div style={{ width: '100px', height: '100px' }}>
-                                                <img style={{ width: '100%', height: '100%' }} src={'http://localhost:5000/images/' + Image} />
+                                                <img style={{ width: '100%', height: '100%' }} src={Url_Image + Image} />
                                             </div> : <div />
                                     }
                                 </div>
@@ -128,23 +135,24 @@ const AddProduct = () => {
                             <div className='col-6'>
                                 <div className="form-group">
                                     <label htmlFor>Số Lượng</label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeSoLuong(val)} placeholder="Nhập Số Lượng" />
+                                    <input type="text" value={SoLuong}  className="form-control" onChange={(val) => isChangeSoLuong(val)} placeholder="Nhập Số Lượng" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Gía</label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeGia(val)} placeholder="Nhập Gía" />
+                                    <input type="text" value={Gia} className="form-control" onChange={(val) => isChangeGia(val)} placeholder="Nhập Gía" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Thương Hiệu</label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeThuongHieu(val)} placeholder="Nhập Thương Hiệu" />
+                                    <input type="text" value={ThuongHieu} className="form-control" onChange={(val) => isChangeThuongHieu(val)} placeholder="Nhập Thương Hiệu" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Thông Tin</label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeThongTin(val)} placeholder="Nhập Thông Tin" />
+                                    <input type="text" value={ThongTin} className="form-control" onChange={(val) => isChangeThongTin(val)} placeholder="Nhập Thông Tin" />
                                 </div>
+                                <input type="submit" name="submit" className="btn btn-success  btn-lg" onClick={(evt) => ClickSubmit(evt)} value="Cập nhật thông tin" />
                             </div>
                         </div>
-                        <input type="submit" name="submit" className="btn btn-success  btn-lg" onClick={(evt) => ClickSubmit(evt)} value="Thêm Mới Dữ Liệu" />
+                        
                     </form>
                 </div>
             </div>
@@ -157,7 +165,7 @@ const AddProduct = () => {
                     <MenuBar />
                 </div>
                 <div className="col-xl-10">
-                    <Add/>
+                    <Update />
                 </div>
             </div>
 
@@ -165,4 +173,4 @@ const AddProduct = () => {
     );
 }
 
-export default AddProduct;
+export default EditProduct;

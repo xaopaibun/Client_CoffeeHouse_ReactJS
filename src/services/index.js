@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { Url_Locahost } from '../config/Until';
+import { Token, Url_Locahost } from '../config/Until';
 // const token = useSelector(store => store.AdminReduces.token);
 
 const instance = axios.create({
@@ -18,7 +18,7 @@ const instanceAdmin = axios.create({
   headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      // 'Authorization': `bearer ${ANC}`
+      'Authorization': `bearer ${Token}`
     },
 });
 
@@ -31,6 +31,7 @@ export const getdata = () => instance.get('/');
 export const getloai = () => instance.get('/getloai');
 export const getsanphamtheoloai = (idLoai) => instance.get('/getcoffee_idloai/' + idLoai);
 export const getCoffee = (id) => instance.get('/getCoffee/' + id);
+export const updateCoffee = (id, prams) => instance.put('/update_coffee/'+id , prams);
 export const dangkytk = (prams) => instance.post('/user/dangky', prams);
 export const login = (prams) => instance.post('/user/login', prams);
 export const logout = (prams) => instance.post('/user/logout', prams);
@@ -48,3 +49,6 @@ export const getWeAreShopCoffee = () => instance.get('/WeAreShopCoffee');
 export const getContentGioiThieuShop = () => instance.get('/ContentGioiThieuShop');
 export const UpdateContentGioiThieuShop = (prams) => instance.put('/UpdateContentGioiThieuShop', prams);
 export const UpdateImagesShop = (prams) => instance.put('/UpdateImagesShop', prams);
+
+export const getdatapage1 = () => instanceAdmin.get('/getdata/page=1');
+export const getdatapage = (page) => instanceAdmin.get('/getdata/page=' +page);
