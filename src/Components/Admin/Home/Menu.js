@@ -1,9 +1,22 @@
 import axios from 'axios';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import MenuBar from '../MenuBar';
 
 
 const Home = () => {
+    const Token = useSelector(store => store.HomeReduce.Token);
+    const history = useHistory();
+    console.log('abc', Token)
+    React.useEffect(() =>{
+        if(!Token){
+            history.push('/Admin/login')
+        }
+        else{
+            history.push('/Admin/Home')
+        }
+    }, [])
     return (
         <div >
 

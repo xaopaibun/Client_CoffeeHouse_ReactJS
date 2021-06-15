@@ -5,19 +5,15 @@ import Footer from "../Footer";
 import MenuCoffeeHouse from "../Menu";
 import ProductItem from '../TrangChu.js/ProductItem';
 const AllSanPham = () => {
-    //const dulieu = useSelector(state => state.HomeReduce.dulieu)
+  
     const [dulieu, setdulieu] = useState([]);
-    const GetProduct = () => {
+
+    React.useEffect(() => {
         getdata().then(function (response) {
-            // dispatch({ type: "ALLSANPHAM", data: response.data })
             setdulieu(response.data);
         }).catch(function (error) {
             console.log(error);
-        }).then(function () {
-        });
-    }
-    React.useEffect(() => {
-        GetProduct();
+        })
     }, []);
    
     return (

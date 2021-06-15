@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
-import { logout } from '../../services';
+import { getloai, logout } from '../../services';
 const MenuCoffeeHouse = () => {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.HomeReduce.cart.length)
@@ -15,27 +15,21 @@ const MenuCoffeeHouse = () => {
     const token = useSelector(state => state.HomeReduce.refreshToken)
     const keyMenu = useSelector(state => state.HomeReduce.keyMenu)
     const [loai, setloai] = React.useState([]);
-    const GetLoai = () => {
-        axios.get('http://localhost:5000/getloai')
-            .then(function (response) {
-                setloai(response.data);
-
-            })
-            .catch(function (error) {
-
-                console.log(error);
-            })
-            .then(function () {
-
-            });
-    }
+    const name = useSelector(state => state.HomeReduce.name)
     React.useEffect(() => {
-        GetLoai();
+        getloai().then(function (response) {
+            setloai(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }, []);
+
     const onLogout = () =>{
         logout({token : token}).then(response =>  {
             dispatch({type:"Logout" });
-            console.log(response.data)
+            // console.log(response.data)
+            alert('Bạn đã đăng xuất thành công');
             history.push("/TrangChu");
         } ).catch( error => console.log(error))
     }
@@ -43,6 +37,7 @@ const MenuCoffeeHouse = () => {
     const onActiveMenu = (key) =>{
         dispatch({type:"ActiveMenu", keyMenu : key})
     }
+
     return (
         <div>
             <div className="container">
@@ -54,7 +49,7 @@ const MenuCoffeeHouse = () => {
                         <div className="col-lg-6">
 
                             {
-                                dataUser  ? <ul className="ul_taikhoan"><p style={{color: '#636363'}}>Tài Khoản bạn <Link to="/Account" style={{color: 'red'}}>{dataUser?.name}</Link> / <Link to ="/TrangChu" onClick={() =>onLogout()}>Thoát</Link></p></ul> :
+                                name  ? <ul className="ul_taikhoan"><p style={{color: '#636363'}}>Tài Khoản bạn <Link to="/Account" style={{color: 'green' , fontWeight:'bold'}}>{name}</Link> / <Link to ="/TrangChu" onClick={() =>onLogout()}>Thoát</Link></p></ul> :
                                     <ul className="ul_taikhoan">
                                         <li className="ul_taikhoan_li"><Link to="/DangNhap">Đăng Nhập</Link></li>
                                         <span>/</span>
@@ -86,13 +81,14 @@ const MenuCoffeeHouse = () => {
                                     <li className="nav_item"><a href=""style={{color: keyMenu === 'Liên Hệ' ? '#e7b45a': ''}}   onClick = {() => onActiveMenu('Liên Hệ')}>Liên Hệ</a></li>
                                 </ul>
                                 <ul className="GioHang flex text-right">
-                                    <li className="nav_icon search"><i className="fas fa-search" />
-                                        <form action="TimKiem.php" method="post">
-                                            <div className="query_search">
-                                                <input name="keyword" type="text" placeholder="Tìm Kiếm" />
-                                                <button type="submit" name="search"><a href="TimKiem.php"><i className="fas fa-search" /></a></button>
-                                            </div>
-                                        </form>
+                                    <li className="nav_icon search">
+                                        {/* <i className="fas fa-search" /> */}
+                                        {/* <form action="TimKiem.php" method="post">
+                                            <div className="query_search"> */}
+                                                {/* <input name="keyword" type="text" placeholder="Tìm Kiếm" /> */}
+                                                <Link to ='/Search'><i className="fas fa-search" /></Link>
+                                            {/* </div>
+                                        </form> */}
                                     </li>
                                     <li className="nav_icon"><Link to='/Cart'><i className="fa fa-shopping-bag" style={{ color: '#e7b45a' }} /><div style={{ borderRadius: '50%', width: '15px', height: '15px', backgroundColor: 'white', position: 'absolute', top: 0, right: 0, zIndex: 1, textAlign: 'center', fontWeight: 900, fontSize: '10px', color: '#252525' }}>{cart}</div></Link></li>
                                 </ul>

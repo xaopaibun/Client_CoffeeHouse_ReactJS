@@ -3,6 +3,8 @@ import { getImagesShop, UpdateImagesShop } from '../../../services';
 import MenuBar from '../MenuBar';
 import axios from 'axios'
 import { Url_Locahost } from '../../../config/Until';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 const QuanLyImagesShop = () => {
     const [dulieu, setdulieu] = React.useState();
     const [Image1, setImage1] = React.useState('');
@@ -10,9 +12,15 @@ const QuanLyImagesShop = () => {
     const [Image3, setImage3] = React.useState('');
     const [Image4, setImage4] = React.useState('');
     const [Image5, setImage5] = React.useState('');
-
+    const history = useHistory();
+    const Token = useSelector(store => store.HomeReduce.Token);
     React.useEffect(() => {
-        getImagesShop().then(res => setdulieu(res.data[0])).catch(error => alert(error))
+        if (!Token) {
+            history.push('/Admin/login')
+        }
+        else {
+            getImagesShop().then(res => setdulieu(res.data[0])).catch(error => alert(error))
+        }
     }, [])
 
     const onChangeFile1 = async (evt) => {
@@ -24,7 +32,7 @@ const QuanLyImagesShop = () => {
                 'content-type': 'multipart/form-data'
             }
         }
-        await axios.post( Url_Locahost+'uploadImages', formData, config).then(res => {
+        await axios.post(Url_Locahost + 'uploadImages', formData, config).then(res => {
             console.log('RES', res.data.fileNameInServer)
             let filePath = res.data.fileNameInServer
             if (filePath) {
@@ -42,7 +50,7 @@ const QuanLyImagesShop = () => {
                 'content-type': 'multipart/form-data'
             }
         }
-        await axios.post(Url_Locahost +'uploadImages', formData, config).then(res => {
+        await axios.post(Url_Locahost + 'uploadImages', formData, config).then(res => {
             console.log('RES', res.data.fileNameInServer)
             let filePath = res.data.fileNameInServer
             if (filePath) {
@@ -60,7 +68,7 @@ const QuanLyImagesShop = () => {
                 'content-type': 'multipart/form-data'
             }
         }
-        await axios.post(Url_Locahost +'uploadImages', formData, config).then(res => {
+        await axios.post(Url_Locahost + 'uploadImages', formData, config).then(res => {
             console.log('RES', res.data.fileNameInServer)
             let filePath = res.data.fileNameInServer
             if (filePath) {
@@ -78,7 +86,7 @@ const QuanLyImagesShop = () => {
                 'content-type': 'multipart/form-data'
             }
         }
-        await axios.post(Url_Locahost +'uploadImages', formData, config).then(res => {
+        await axios.post(Url_Locahost + 'uploadImages', formData, config).then(res => {
             console.log('RES', res.data.fileNameInServer)
             let filePath = res.data.fileNameInServer
             if (filePath) {
@@ -96,8 +104,8 @@ const QuanLyImagesShop = () => {
                 'content-type': 'multipart/form-data'
             }
         }
-         axios.post(Url_Locahost +'uploadImages', formData, config).then(res => {
-          
+        axios.post(Url_Locahost + 'uploadImages', formData, config).then(res => {
+
             let filePath = res.data.fileNameInServer
             if (filePath) {
                 filePath = filePath.split('\\')[1]
@@ -107,7 +115,7 @@ const QuanLyImagesShop = () => {
     }
     const ClickSubmit = (evt) => {
         evt.preventDefault();
-        let dulieu =  { images : [Image1, Image2,Image3, Image4, Image5]};
+        let dulieu = { images: [Image1, Image2, Image3, Image4, Image5] };
         UpdateImagesShop(dulieu).then(res => alert('cập nhật ảnh thành công')).catch(err => alert('thất bại'))
     }
 
