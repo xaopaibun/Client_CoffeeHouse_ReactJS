@@ -4,7 +4,7 @@ import React from 'react';
 
 import Menu from '../Home/Menu';
 import { useHistory , Link} from "react-router-dom";
-import { FormatNumber, Url_Image } from '../../../config/Until';
+import { FormatNumber, Url_Image, Url_Locahost } from '../../../config/Until';
 import { useDispatch } from 'react-redux';
 import { getdatapage , getdatapage1} from '../../../services';
 const SanPham = () => {
@@ -30,7 +30,7 @@ const SanPham = () => {
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get('http://localhost:5000/getpage')
+        axios.get(Url_Locahost+'/getpage')
             .then(function (response) {
                 setpage(response.data.pagelength);
             })
@@ -41,7 +41,7 @@ const SanPham = () => {
     }, []);
 
     const Xoa = (id) => {
-        axios.delete('https://servercoffeehouse.herokuapp.com/xoa/' + id).then(function (response) {
+        axios.delete(Url_Locahost+'/xoa/' + id).then(function (response) {
             setdulieu(dulieu.filter(item => item._id !== id));
         }).catch(function (error) {
             console.log(error);
@@ -109,25 +109,27 @@ const SanPham = () => {
 
         );
     }
+    const filterItems = (query) => {
+        return dulieu.filter((el) =>
+            el.TenCoffee.toLowerCase().indexOf(query.toLowerCase()) > -1
+        );
+    }
 
     const NavBar = () => {
         const [Key, setKey] = React.useState();
-        const Search = () => {
-            axios.post('http://localhost:5000/findToCoffee', { TenCoffee: Key })
-                .then(function (response) {
-                    console.log('abc', response);
-                    //setdulieu()
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+        const [KQ, setKQ] = React.useState();
+        
+        const onSearch = () =>{
+           
+            setKQ(filterItems(Key))
         }
+        
         return (
             <nav className="navbar justify-content-between">
                <button type="button" onClick={() => history.push('/Admin/SanPham/AddProduct')} className="btn btn-info btn-lg">Thêm dữ liệu</button>
                 <div className="form-inline">
                     <input className="form-control mr-sm-2" onChange={(val) => setKey(val.target.value)} type="search" placeholder="Search" aria-label="Search" />
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={() => Search()}>Search</button>
+                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={() =>  onSearch()}>Search</button>
                 </div>
             </nav>
         );

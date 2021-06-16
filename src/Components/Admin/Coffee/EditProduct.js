@@ -91,9 +91,13 @@ const EditProduct = () => {
         });
     }
 
-    const Update = () => {
-        return (
-            <div>
+    return (
+        <div >
+            <div className="row">
+                <div className="col-xl-2">
+                    <MenuBar />
+                </div>
+                <div className="col-xl-10">
                 <div className='container'>
                     <form encType="multipart/form-data">
                         <div className='row'>
@@ -155,17 +159,6 @@ const EditProduct = () => {
                         
                     </form>
                 </div>
-            </div>
-        );
-    }
-    return (
-        <div >
-            <div className="row">
-                <div className="col-xl-2">
-                    <MenuBar />
-                </div>
-                <div className="col-xl-10">
-                    <Update />
                 </div>
             </div>
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import CKEditor from 'ckeditor4-react';
 import MenuBar from "../MenuBar";
+import { Url_Locahost } from '../../../config/Until';
 const AddProduct = () => {
     const [Ten, setTen] = React.useState();
     const [Image, setImage] = React.useState('');
@@ -23,8 +24,10 @@ const AddProduct = () => {
     const [loai, setloai] = React.useState([]);
 
 
-    const GetLoai = () => {
-        axios.get('https://servercoffeehouse.herokuapp.com/getloai')
+
+
+    React.useEffect(() => {
+        axios.get(Url_Locahost + '/getloai')
             .then(function (response) {
                 setloai(response.data);
             })
@@ -32,13 +35,6 @@ const AddProduct = () => {
                 // handle error
                 console.log(error);
             })
-            .then(function () {
-                // always executed
-            });
-    }
-
-    React.useEffect(() => {
-        GetLoai();
     }, []);
 
     const onEditorChange = (evt) => {
@@ -55,7 +51,7 @@ const AddProduct = () => {
                 'content-type': 'multipart/form-data'
             }
         }
-        await axios.post('http://localhost:5000/uploadImages', formData, config).then(res => {
+        await axios.post(Url_Locahost +'/uploadImages', formData, config).then(res => {
             console.log('RES', res.data.fileNameInServer)
             let filePath = res.data.fileNameInServer
             if (filePath) {
@@ -84,72 +80,6 @@ const AddProduct = () => {
             });
     }
 
-    const Add = () => {
-        return (
-            <div>
-                <div className='container'>
-                    <form encType="multipart/form-data">
-                        <div className='row'>
-
-                            <div className='col-6'>
-                                <div className="form-group">
-                                    <label htmlFor>Tên Coffee </label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeTen(val)} placeholder="Nhập Tên Coffee" />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor>Loại Coffee </label>
-                                    <select className="form-control" name="LoaiCoffee" id="LoaiCoffee" onChange={(val) => isChangeLoai(val)} >
-                                        {
-                                            loai && loai.map((val) => (
-                                                <option value={val._id} >{val.tenloai}</option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor>Hình Ảnh Coffee</label>
-                                    <input type="file" onChange={(evt) => onChangeFile(evt)} className="form-control-file" name="images" placeholder aria-describedby="fileHelpId" />
-                                    {
-                                        Image !== '' ?
-                                            <div style={{ width: '100px', height: '100px' }}>
-                                                <img style={{ width: '100%', height: '100%' }} src={'http://localhost:5000/images/' + Image} />
-                                            </div> : <div />
-                                    }
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor>Mô Tả</label>
-                                    <CKEditor
-
-                                        data={MoTa}
-                                        onChange={(val) => onEditorChange(val)} />
-
-                                </div>
-                            </div>
-                            <div className='col-6'>
-                                <div className="form-group">
-                                    <label htmlFor>Số Lượng</label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeSoLuong(val)} placeholder="Nhập Số Lượng" />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor>Gía</label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeGia(val)} placeholder="Nhập Gía" />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor>Thương Hiệu</label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeThuongHieu(val)} placeholder="Nhập Thương Hiệu" />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor>Thông Tin</label>
-                                    <input type="text" className="form-control" onChange={(val) => isChangeThongTin(val)} placeholder="Nhập Thông Tin" />
-                                </div>
-                            </div>
-                        </div>
-                        <input type="submit" name="submit" className="btn btn-success  btn-lg" onClick={(evt) => ClickSubmit(evt)} value="Thêm Mới Dữ Liệu" />
-                    </form>
-                </div>
-            </div>
-        );
-    }
     return (
         <div >
             <div className="row">
@@ -157,7 +87,66 @@ const AddProduct = () => {
                     <MenuBar />
                 </div>
                 <div className="col-xl-10">
-                    <Add/>
+                    <div className='container'>
+                        <form encType="multipart/form-data">
+                            <div className='row'>
+
+                                <div className='col-6'>
+                                    <div className="form-group">
+                                        <label htmlFor>Tên Coffee </label>
+                                        <input type="text" className="form-control" onChange={(val) => isChangeTen(val)} placeholder="Nhập Tên Coffee" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor>Loại Coffee </label>
+                                        <select className="form-control" name="LoaiCoffee" id="LoaiCoffee" onChange={(val) => isChangeLoai(val)} >
+                                            {
+                                                loai && loai.map((val) => (
+                                                    <option value={val._id} >{val.tenloai}</option>
+                                                ))
+                                            }
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor>Hình Ảnh Coffee</label>
+                                        <input type="file" onChange={(evt) => onChangeFile(evt)} className="form-control-file" name="images" placeholder aria-describedby="fileHelpId" />
+                                        {
+                                            Image !== '' ?
+                                                <div style={{ width: '100px', height: '100px' }}>
+                                                    <img style={{ width: '100%', height: '100%' }} src={'http://localhost:5000/images/' + Image} />
+                                                </div> : <div />
+                                        }
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor>Mô Tả</label>
+                                        <CKEditor
+
+                                            data={MoTa}
+                                            onChange={(val) => onEditorChange(val)} />
+
+                                    </div>
+                                </div>
+                                <div className='col-6'>
+                                    <div className="form-group">
+                                        <label htmlFor>Số Lượng</label>
+                                        <input type="text" className="form-control" onChange={(val) => isChangeSoLuong(val)} placeholder="Nhập Số Lượng" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor>Gía</label>
+                                        <input type="text" className="form-control" onChange={(val) => isChangeGia(val)} placeholder="Nhập Gía" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor>Thương Hiệu</label>
+                                        <input type="text" className="form-control" onChange={(val) => isChangeThuongHieu(val)} placeholder="Nhập Thương Hiệu" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor>Thông Tin</label>
+                                        <input type="text" className="form-control" onChange={(val) => isChangeThongTin(val)} placeholder="Nhập Thông Tin" />
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" name="submit" className="btn btn-success  btn-lg" onClick={(evt) => ClickSubmit(evt)} value="Thêm Mới Dữ Liệu" />
+                        </form>
+                    </div>
                 </div>
             </div>
 

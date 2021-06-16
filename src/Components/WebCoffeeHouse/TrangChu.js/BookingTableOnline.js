@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import { validatePhone } from '../../../config/Until';
 import { onBookingTableOnline } from '../../../services';
 const BookingTableOnline = () => {
     const [fullname, setfullname] = React.useState();
@@ -9,16 +10,34 @@ const BookingTableOnline = () => {
     const Time = ['7.00 AM', '8.00 AM', '9.00 AM', '10.00 AM', '11.00 AM', '1.00 PM', '2.00 PM', '3.00 PM', '4.00 PM', '5.00 PM', '6.00 PM', '7.00 PM',  '8.00 PM', '9.00 PM', '10.00 PM' ]
     
     const onSubmit = () =>{
-        let dulieu = {fullname : fullname, phone : phone, date:date, timeslot : timeslot}
-        onBookingTableOnline(dulieu).then(function (response) {
-            alert("Bạn đã đặt bàn thành công, Chúng tôi sẽ sớm liên hệ đến bạn !")
-            setfullname('');
-            setphone('');
-            setdate('');
-            settimeslot('');
-        }).catch(function (error) {
-            alert("Có lỗi gì đó, bạn vui lòng thử lại sau !")
-        });  
+        if (!fullname) {
+            alert('Tên không được để trống, Mời bạn nhập lại');
+        }
+        else if(!phone){
+            alert('SDT Không dc để rỗng, Mời bạn nhập lại');
+        }
+        else if (!validatePhone(phone)) {
+             
+            alert('SDT không đúng định dạng, Mời bạn nhập lại');
+        }
+        else if (!date) {
+            alert('Bạn chưa chọn ngày, Mời bạn nhập lại');
+        }
+        else if (!timeslot) {
+            alert('Bạn chưa chọn khung giờ, Mời bạn nhập lại');
+        }
+        else {
+            let dulieu = { fullname: fullname, phone: phone, date: date, timeslot: timeslot }
+            onBookingTableOnline(dulieu).then(function (response) {
+                alert("Bạn đã đặt bàn thành công, Chúng tôi sẽ sớm liên hệ đến bạn !")
+                setfullname('');
+                setphone('');
+                setdate('');
+                settimeslot('');
+            }).catch(function (error) {
+                alert("Có lỗi gì đó, bạn vui lòng thử lại sau !")
+            });
+        }  
     }
     
     return (

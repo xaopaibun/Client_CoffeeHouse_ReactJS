@@ -6,7 +6,7 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { thanhtoan } from "../../../services";
-import { Url_Locahost } from "../../../config/Until";
+import { Url_Locahost, validateEmail, validatePhone } from "../../../config/Until";
 import axios from 'axios';
 
 const FormDienThongTin = () => {
@@ -21,27 +21,38 @@ const FormDienThongTin = () => {
 
     const TokenUser = useSelector(state => state.HomeReduce.TokenUser)
     const SumMoney = useSelector(state => state.HomeReduce.SumMoney)
-
+    const [error, seterror] = React.useState();
     const dispatch = useDispatch();
 
     const onThanhToan = () => {
-        let dulieu = { fullname: fullname, phone: phone, gmail: gmail, note: note, address: address, OrderProducts: OrderProducts, sumMoney: SumMoney };
-        thanhtoan(dulieu).then(function (response) {
-            alert('Đặt hàng thành công, thông tin chi tiết sẽ được gửi vào gmail của bạn');
-            history.push('/TrangChu');
-            dispatch({ type: 'ResetCart' })
-            setfullname('');
-            setphone('');
-            setaddress('');
-            setgmail('');
-            setnote('');
-        }).catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-            .then(function () {
-                // always executed
-            });
+        if(!fullname){
+            seterror('Họ tên không dc để trống');
+        }
+        else if(!validatePhone(phone)){
+            seterror('Số điện thoại k đúng định dạng');
+        }
+        else if(!validateEmail(gmail)){
+            seterror('Gmail k đúng định dạng');
+        }
+        else if(!address){
+            seterror('Địa chỉ ko dc để rỗng');
+        }
+        else{
+            let dulieu = { fullname: fullname, phone: phone, gmail: gmail, note: note, address: address, OrderProducts: OrderProducts, sumMoney: SumMoney };
+            thanhtoan(dulieu).then(function (response) {
+                alert('Đặt hàng thành công, thông tin chi tiết sẽ được gửi vào gmail của bạn');
+                history.push('/TrangChu');
+                dispatch({ type: 'ResetCart' })
+                setfullname('');
+                setphone('');
+                setaddress('');
+                setgmail('');
+                setnote('');
+            }).catch(function (error) {
+                // handle error
+                alert('Đặt hàng thất bại');
+            })
+        }
     }
     React.useEffect(() =>{
         if(TokenUser) {
@@ -69,6 +80,7 @@ const FormDienThongTin = () => {
                         <h2> <Link to='/TrangChu' style={{ color: '#2a9dcc', fontSize: '40px', cursor: 'pointer' }}>Coffee House</Link></h2>
                         <div class="row">
                             <div class="col-xl-6">
+                            <p style={{color: 'red'}}>{error}</p> 
                                 <h5>Điền Thông Tin Mua Hàng</h5>
                                 {/* <Link to = '/DangNhap'> <i class="fa fa-user-circle-o fa-lg"></i><span>Đăng Nhập</span></Link> */}
                                 <div className="form-group">
