@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Url, Url_Locahost } from '../../../config/Until';
 import Menu from "../Home/Menu";
@@ -8,51 +9,57 @@ const LoaiCoffee = () => {
     const [loai, setloai] = React.useState([]);
     const [name, setname] = React.useState();
     const history = useHistory();
-
+    const Token = useSelector(store => store.HomeReduce.Token);
     React.useEffect(() => {
-        axios.get(Url_Locahost + '/getloai')
-        .then(function (response) {
-            setloai(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+        if (!Token) {
+            history.push('/Admin/login')
+        }
+        else {
+            axios.get(Url_Locahost + '/getloai')
+                .then(function (response) {
+                    setloai(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }
     }, []);
 
-    const onAdd = () =>{
-        axios.post(Url_Locahost + '/addloaicoffee', {tenloai : name})
-        .then(function (response) {
-            alert('Thêm loại mới thành công');
-            history.push('/Admin');
-            history.push('/Admin/LoaiSanPham');
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+
+    const onAdd = () => {
+        axios.post(Url_Locahost + '/addloaicoffee', { tenloai: name })
+            .then(function (response) {
+                alert('Thêm loại mới thành công');
+                history.push('/Admin');
+                history.push('/Admin/LoaiSanPham');
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
-    const onEdit = () =>{
-        axios.put(Url_Locahost + '/updateloai', {tenloai : name})
-        .then(function (response) {
-            alert('Cập nhật thành công');
-            history.push('/Admin');
-            history.push('/Admin/LoaiSanPham');
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+    const onEdit = () => {
+        axios.put(Url_Locahost + '/updateloai', { tenloai: name })
+            .then(function (response) {
+                alert('Cập nhật thành công');
+                history.push('/Admin');
+                history.push('/Admin/LoaiSanPham');
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
-    const onDelete = (id) =>{
+    const onDelete = (id) => {
         axios.delete(Url_Locahost + '/xoaloai/' + id)
-        .then(function (response) {
-            alert('Xóa thành công');
-            history.push('/Admin');
-            history.push('/Admin/LoaiSanPham');
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+            .then(function (response) {
+                alert('Xóa thành công');
+                history.push('/Admin');
+                history.push('/Admin/LoaiSanPham');
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
     return (
         <div>
@@ -68,9 +75,9 @@ const LoaiCoffee = () => {
                                     <input type="text" onChange={(val) => setname(val.target.value)} className="form-control" placeholder="Nhập Tên Loại Coffee" aria-describedby="helpId" />
                                 </div>
                             </div>
-                    
+
                             <div class="col-xl-6">
-                                <button type="button" className="btn btn-info btn-lg" onClick = {() => onAdd()} >Thêm Loại Cà Phê</button>
+                                <button type="button" className="btn btn-info btn-lg" onClick={() => onAdd()} >Thêm Loại Cà Phê</button>
                             </div>
                         </div>
                         <table class="table table-hover" >

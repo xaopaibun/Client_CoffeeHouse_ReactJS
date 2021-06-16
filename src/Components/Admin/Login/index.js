@@ -3,21 +3,19 @@ import '../../../assets/CSS/Fromlogin.css';
 import { loginAdmin } from '../../../services';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import ls  from "local-storage";
+import ls from "local-storage";
 const Login = () => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const history = useHistory();
     const dispatch = useDispatch();
-    const onLogin = () =>{
-       let Admin = {gmail : username , password : password }
-       loginAdmin(Admin).then(res => {
-      
-       
-         dispatch({type : 'TOKEN', Token :res.data.accessToken })
-         ls.set('Token', res.data.accessToken)
-        history.push('/Admin/Home');
-       }).catch(err => console.log(err));
+    const onLogin = () => {
+        let admin = { gmail: username, password: password }
+        loginAdmin(admin).then(res => {
+            dispatch({ type: 'TOKEN', Token: res.data.accessToken })
+            ls.set('Token', res.data.accessToken)
+            history.push('/Admin/Home');
+        }).catch(err => console.log(err));
     }
     return (
         <div>
@@ -36,7 +34,7 @@ const Login = () => {
                     <input type="password" name="password" onChange={(val) => setPassword(val.target.value)} />
                 </div>
                 <div className="form-field">
-                    <button type="submit" className="login-btn"   onClick={() => onLogin()}>Login</button>
+                    <button type="submit" className="login-btn" onClick={() => onLogin()}>Login</button>
                 </div>
 
                 <div className="login-footer">

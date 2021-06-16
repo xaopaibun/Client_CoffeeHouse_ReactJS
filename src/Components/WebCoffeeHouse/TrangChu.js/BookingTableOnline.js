@@ -17,7 +17,7 @@ const BookingTableOnline = () => {
             setdate('');
             settimeslot('');
         }).catch(function (error) {
-            console.log(error);
+            alert("Có lỗi gì đó, bạn vui lòng thử lại sau !")
         });  
     }
     

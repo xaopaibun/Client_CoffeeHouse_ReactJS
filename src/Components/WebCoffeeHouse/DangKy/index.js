@@ -3,11 +3,13 @@ import { useHistory } from "react-router-dom";
 import Footer from "../Footer";
 import MenuCoffeeHouse from "../Menu";
 import { dangkytk } from '../../../services';
+import { isValidName, validateEmail, validatePhone } from '../../../config/Until';
 const DangKy = () => {
     const history = useHistory();
     const [name, setname] = React.useState();
     const [gmail, setgmail] = React.useState();
-    const [password, setpassword] = React.useState();
+    const [error, seterror] = React.useState();
+    const [password, setpassword] = React.useState('');
     const [phone, setphone] = React.useState();
     const isChangename = val => setname(val.target.value);
     const isChangegmail = val => setgmail(val.target.value);
@@ -15,11 +17,32 @@ const DangKy = () => {
     const isChangephone = val => setphone(val.target.value);
    
     const onSubmit = () =>{
-        let dulieu = {name : name, gmail : gmail, password : password, phone : phone}
-        dangkytk(dulieu).then(response =>  {
-            alert(response.data)
-            history.push("/DangNhap");
-        } ).catch( error => console.log(error))
+        if(!validateEmail(gmail)){
+            seterror('Gmail bạn nhập không đúng định dạng');
+        }
+        else if(!name ){
+            seterror('Name không được để trống');
+        }
+        else if(!isValidName(name)){
+            seterror('Name không được xử dụng ký tự đặc biệt hoặc chứa số');
+        }
+        else if(password.length < 6){
+            seterror('Mật khẩu ít nhất 6 ký tự');
+        }
+        else if(!validatePhone(phone)){
+            seterror('Số điện thoại không đúng định dạng');
+        }
+        else{
+            seterror('');
+         
+            let dulieu = {name : name, gmail : gmail, password : password, phone : phone}
+            dangkytk(dulieu).then(response =>  {
+                alert(response.data)
+                history.push("/DangNhap");
+            } ).catch( error =>  alert('Bạn thử lại sau, Lỗi gì đó'))
+        }
+          
+        
     }
     return (
         <div>
@@ -37,7 +60,7 @@ const DangKy = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 cangiua">
-                            
+                                <p style={{color: 'red'}}>{error}</p>
                                 <div className="form-group">
                                     <input type="text" onChange={value =>isChangename(value)} className="form-control input" name="txtHoTen" id placeholder="Nhập Họ Tên" />
                                 </div>

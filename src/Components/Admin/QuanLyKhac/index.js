@@ -1,3 +1,4 @@
+import React from 'react'
 import Menu from "../Home/Menu";
 import MenuBar from "../MenuBar";
 import {
@@ -5,7 +6,15 @@ import {
     Link,
     useParams, useHistory
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 const MenuQuanLyKhac = () => {
+    const Token = useSelector(store => store.HomeReduce.Token);
+    const history = useHistory();
+    React.useEffect(() =>{
+        if(!Token){
+            history.push('/Admin/login')
+        }
+    }, [])
     return (
         <div>
             <div className="row">

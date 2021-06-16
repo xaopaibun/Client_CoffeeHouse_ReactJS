@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom"; 
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import { HandleTime, Url_Locahost } from '../../../config/Until';
 import Menu from "../Home/Menu";
 import MenuBar from '../MenuBar';
@@ -10,8 +10,10 @@ const DonHang = () => {
     const [Page, setPage] = React.useState();
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const Token = useSelector(store => store.HomeReduce.Token);
     const GetDonHang = () => {
-        axios.get(Url_Locahost +'/getorderProduct')
+        axios.get(Url_Locahost + '/getorderProduct')
             .then(function (response) {
                 setDonHang(response.data);
             })
@@ -19,8 +21,8 @@ const DonHang = () => {
                 console.log(error);
             })
     }
-    const GetPage = () =>{
-        axios.get(Url_Locahost +'/getPageOrderProducts')
+    const GetPage = () => {
+        axios.get(Url_Locahost + '/getPageOrderProducts')
             .then(function (response) {
                 setPage(response.data);
             })
@@ -28,13 +30,21 @@ const DonHang = () => {
                 console.log(error);
             })
     }
+
+
+
     React.useEffect(() => {
-        GetDonHang();
+        if (!Token) {
+            history.push('/Admin/login')
+        }
+        else {
+            GetDonHang();
+        }
     }, []);
 
 
     const deleteOderProducts = (id) => {
-        axios.delete(Url_Locahost +'/deleteorderProducts_iD/' + id)
+        axios.delete(Url_Locahost + '/deleteorderProducts_iD/' + id)
             .then(function (response) {
                 // DonHang.filter((val) => val._id !== id)
                 alert('Xóa thành công');
@@ -42,24 +52,24 @@ const DonHang = () => {
                 history.push('/Admin/DonHang');
             })
             .catch(function (error) {
-             
+
                 console.log(error);
             }
-        )
+            )
     }
 
     const getorderProducts_iD = (id) => {
-        axios.get(Url_Locahost +'/getorderProducts_iD/' + id)
+        axios.get(Url_Locahost + '/getorderProducts_iD/' + id)
             .then(function (response) {
                 dispatch({ type: 'getorderProducts_iD', getorderProducts_iD: response.data[0] })
                 history.push('/Admin/DonHang/OrderDetail');
 
             })
             .catch(function (error) {
-               
+
                 console.log(error);
             })
-        
+
     }
     return (
         <div>
@@ -99,7 +109,7 @@ const DonHang = () => {
                                                 <td>{val.gmail}</td>
                                                 <td>{val.address}</td>
                                                 <td>{HandleTime(val.date)}</td>
-                                                <td>{val.status == 2 ? 'Đã xử lý đơn hàng' : val.status == 1 ? 'Chưa xử lý' :'Đã Hủy'}</td>
+                                                <td>{val.status == 2 ? 'Đã xử lý đơn hàng' : val.status == 1 ? 'Chưa xử lý' : 'Đã Hủy'}</td>
                                                 <td style={{ width: '140px' }}>
                                                     <button type="button" className="btn btn-success" onClick={() => getorderProducts_iD(val._id)} >Xem</button>
                                                     <span> </span>

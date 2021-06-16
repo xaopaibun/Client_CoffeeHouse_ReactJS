@@ -36,7 +36,7 @@ import QuanLyGioiThieu from "../Components/Admin/QuanLyKhac/QuanLyGioiThieu";
 import QuanLyImagesShop from "../Components/Admin/QuanLyKhac/QuanLyImagesShop";
 import GioiThieu from "../Components/WebCoffeeHouse/ContentWeb/GioiThieu";
 import SanPhamTheoLoai from "../Components/WebCoffeeHouse/SanPham/SanPhamTheoLoai";
-
+import Search from '../Components/WebCoffeeHouse/Search'
 export default function RouterApp() {
   return (
     <Router>
@@ -112,6 +112,9 @@ export default function RouterApp() {
           </Route>
           <Route path="/DangNhap">
             <DangNhap />
+          </Route>
+          <Route path="/Search">
+            <Search />
           </Route>
           <Route path="/FormDienThongTin">
             <FormDienThongTin />

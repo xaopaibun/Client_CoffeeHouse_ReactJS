@@ -3,8 +3,9 @@ import axios from 'axios';
 
 import CKEditor from 'ckeditor4-react';
 import MenuBar from '../MenuBar';
-import { useHistory } from "react-router-dom"; 
+import { useHistory } from "react-router-dom";
 import { getContentGioiThieuShop, UpdateContentGioiThieuShop } from '../../../services';
+import { useSelector } from 'react-redux';
 
 const QuanLyGioiThieu = () => {
     const [Content, setContent] = React.useState();
@@ -12,16 +13,22 @@ const QuanLyGioiThieu = () => {
     const onEditorChange = (evt) => {
         setContent(evt.editor.getData());
     }
-
+    const Token = useSelector(store => store.HomeReduce.Token);
+  
     const onUpdate = () => {
-        UpdateContentGioiThieuShop({content : Content}).then(res => {
+        UpdateContentGioiThieuShop({ content: Content }).then(res => {
             alert('Cập nhật thành công');
             history.push('/Admin/MenuQuanLyKhac')
-        }).catch(err => console.log(err ));
+        }).catch(err => console.log(err));
     }
 
-    React.useEffect(() =>{
-        getContentGioiThieuShop().then(res => setContent(res.data[0].content)).catch(err => console.log(err ));
+    React.useEffect(() => {
+        if (!Token) {
+            history.push('/Admin/login')
+        }
+        else {
+            getContentGioiThieuShop().then(res => setContent(res.data[0].content)).catch(err => console.log(err));
+        }
     }, [])
 
     return (

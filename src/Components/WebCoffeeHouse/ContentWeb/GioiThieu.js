@@ -20,7 +20,6 @@ const GioiThieu = () => {
                 <MenuCoffeeHouse />
             </div>
             <div style={{ height: '50px' }}>
-
             </div>
             <div>
                 <h1>Giới Thiệu</h1>

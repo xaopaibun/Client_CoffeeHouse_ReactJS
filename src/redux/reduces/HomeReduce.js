@@ -26,14 +26,20 @@ export default function HomeReduce(state = initialState, action) {
         case 'RemoveCart':
             return { ...state, cart: state.cart.filter((item) => item._id != action._id) }
 
-        case 'Token':
-            return { ...state, refreshToken: action.res.refreshToken, dataUser: action.res.result }
+        case 'TOKEN':
+            return { ...state, Token: action.Token }
+        
+        case 'TOKEN-USER':
+            return { ...state, TokenUser: action.Token }
 
-            case "CartLocal":
-                return { ...state, cart: action.cart }
+        case "CartLocal":
+            return { ...state, cart: action.cart }
 
         case "Logout":
-            return { ...state, refreshToken: null, dataUser: null }
+            return { ...state, Token: '', name : ''}
+
+        case "Name":
+            return { ...state, name: action.name}
 
         case "IDLOAI":
             return { ...state, _idLoai: action._idLoai }

@@ -1,7 +1,17 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import MenuCoffeeHouse from "../Menu";
 
-const Account = () =>{
-    return(
+const Account = () => {
+    const TokenUser = useSelector(state => state.HomeReduce.TokenUser)
+    const history = useHistory();
+    React.useEffect(() => {
+        if (!TokenUser) {
+            history.push('/DangNhap')
+        }
+    }, [])
+    return (
         <div>
             <div className="headertop">
                 <MenuCoffeeHouse />
@@ -15,7 +25,7 @@ const Account = () =>{
                 <div className="row">
                     <div className="col-xl-9">
                         <table className="table">
-                            <thead style={{backgroundColor: '#e7b45a', color: 'white'}}>
+                            <thead style={{ backgroundColor: '#e7b45a', color: 'white' }}>
                                 <tr>
                                     <th>Đơn Hàng</th>
                                     <th>Ngày</th>
@@ -33,7 +43,7 @@ const Account = () =>{
                                     <td ></td>
                                     <td></td>
                                     <td></td> */}
-                                   
+
                                 </tr>
                             </tbody>
                         </table>
@@ -43,13 +53,13 @@ const Account = () =>{
                         <p><i className="fa fa-user icont_user"></i> Qúy</p>
                         <p>Đơn hàng : 0</p>
                         <p>Chi tiêu : 0</p>
-                        <a  className="btn btndiachi">
-                        <span style={{color: 'white'}}>Sổ địa chỉ (0)</span>
+                        <a className="btn btndiachi">
+                            <span style={{ color: 'white' }}>Sổ địa chỉ (0)</span>
                         </a>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     );
 }

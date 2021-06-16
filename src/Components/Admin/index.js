@@ -1,7 +1,9 @@
 import SanPham from "./Coffee/SanPham"
 import MenuBar from "./MenuBar";
 import LoaiCoffee from "../Admin/LoaiCoffee";
+import Menu from "./Home/Menu";
 const QuanTri = () => {
+    
     return (
         <div>
             <div className="row">
@@ -9,7 +11,7 @@ const QuanTri = () => {
                     <MenuBar />
                 </div>
                 <div className="col-xl-10">
-                    <SanPham/>
+                    <Menu/>
                 </div>
             </div>
             {/* <div className="row">
