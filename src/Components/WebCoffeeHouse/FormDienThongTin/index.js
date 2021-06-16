@@ -6,6 +6,9 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { thanhtoan } from "../../../services";
+import { Url_Locahost } from "../../../config/Until";
+import axios from 'axios';
+
 const FormDienThongTin = () => {
     const [fullname, setfullname] = React.useState();
     const [phone, setphone] = React.useState();
@@ -16,8 +19,11 @@ const FormDienThongTin = () => {
     const history = useHistory();
     const OrderProducts = useSelector(state => state.HomeReduce.cart)
 
+    const TokenUser = useSelector(state => state.HomeReduce.TokenUser)
     const SumMoney = useSelector(state => state.HomeReduce.SumMoney)
+
     const dispatch = useDispatch();
+
     const onThanhToan = () => {
         let dulieu = { fullname: fullname, phone: phone, gmail: gmail, note: note, address: address, OrderProducts: OrderProducts, sumMoney: SumMoney };
         thanhtoan(dulieu).then(function (response) {
@@ -37,6 +43,22 @@ const FormDienThongTin = () => {
                 // always executed
             });
     }
+    React.useEffect(() =>{
+        if(TokenUser) {
+            axios.get(Url_Locahost + '/user/getProfile',{
+                headers : {'token' : TokenUser}
+            })
+              .then(function (response) {
+                 setfullname(response.data.profile.data.name);
+                 setphone(response.data.profile.data.phone);
+                 setgmail(response.data.profile.data.gmail);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }
+       
+    }, [])
     return (
         <div>
 
@@ -51,23 +73,23 @@ const FormDienThongTin = () => {
                                 {/* <Link to = '/DangNhap'> <i class="fa fa-user-circle-o fa-lg"></i><span>Đăng Nhập</span></Link> */}
                                 <div className="form-group">
                                     <label htmlFor>Nhập Họ Tên</label>
-                                    <input type="text" className="form-control" onChange={(val) => setfullname(val.target.value)} name id="HoTen" aria-describedby="helpId" placeholder="Nhập Họ Tên" />
+                                    <input type="text" value={fullname} className="form-control" onChange={(val) => setfullname(val.target.value)} name  aria-describedby="helpId" placeholder="Nhập Họ Tên" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Nhập Gmail</label>
-                                    <input type="text" className="form-control" onChange={(val) => setgmail(val.target.value)} name id="SDT" aria-describedby="helpId" placeholder="Nhập Gmail" />
+                                    <input type="text" value={gmail} className="form-control" onChange={(val) => setgmail(val.target.value)} name  aria-describedby="helpId" placeholder="Nhập Gmail" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Nhập Số Điện Thoai</label>
-                                    <input type="text" className="form-control" onChange={(val) => setphone(val.target.value)} name id="SDT" aria-describedby="helpId" placeholder="Nhập Số Điện Thoai" />
+                                    <input type="text" value={phone} className="form-control" onChange={(val) => setphone(val.target.value)} name aria-describedby="helpId" placeholder="Nhập Số Điện Thoai" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Nhập Địa Chỉ</label>
-                                    <input type="text" className="form-control" onChange={(val) => setaddress(val.target.value)} name="DiaChi" id aria-describedby="helpId" placeholder="Nhập Địa Chỉ Chi Tiết" />
+                                    <input type="text" className="form-control" onChange={(val) => setaddress(val.target.value)}  id aria-describedby="helpId" placeholder="Nhập Địa Chỉ Chi Tiết" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor>Nhập Ghi Chú</label>
-                                    <input type="text" className="form-control" onChange={(val) => setnote(val.target.value)} name="DiaChi" id aria-describedby="helpId" placeholder="Nhập Ghi Chú" />
+                                    <input type="text" className="form-control" onChange={(val) => setnote(val.target.value)}  id aria-describedby="helpId" placeholder="Nhập Ghi Chú" />
                                 </div>
                             </div>
                             <div class="col-xl-6">

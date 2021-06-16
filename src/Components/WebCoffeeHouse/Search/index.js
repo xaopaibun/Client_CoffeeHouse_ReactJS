@@ -32,7 +32,8 @@ const Search = () => {
                         className="form-control" onClick={(val) => setkey(val.target.value)}  aria-describedby="helpId" placeholder="Nhập từ khóa tìm kiếm" />
                       
                     </div>
-                  <button type="button" onClick={() => onSearch()} class="btn btn-primary btn-lg">Tìm kiếm</button>
+                    <input  onClick={() => onSearch()}  className="submit" type="submit" value="Tìm kiếm" />
+                
                 </div>
 
             </div>

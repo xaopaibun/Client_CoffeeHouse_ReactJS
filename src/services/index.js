@@ -26,7 +26,7 @@ const instanceAdmin = axios.create({
 
 export const thanhtoan = (prams) => instance.post('/orderProduct', prams);
 
-export const getdata = () => instance.get('/');
+export const getdata = () => instance.get('/getalldata');
 
 export const getsanphamtheoloai = (idLoai) => instance.get('/getcoffee_idloai/' + idLoai);
 
