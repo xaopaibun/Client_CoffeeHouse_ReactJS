@@ -33,18 +33,18 @@ const AddNews = () => {
             setImageNews('http://localhost:5000/images/' + filePath);
         })
     }
-    // let onenews = { titleNews: titleNews, ImageNews: ImageNews, Content: Content }
-    // axios.post('http://localhost:5000/addNews', onenews)
-    //     .then(function (response) {
-    //         alert(response.data)
-    //     })
-    //     .catch(function (error) {
+    let onenews = { titleNews: titleNews, ImageNews: ImageNews, Content: Content }
+    axios.post('http://localhost:5000/addNews', onenews)
+        .then(function (response) {
+            alert(response.data)
+        })
+        .catch(function (error) {
 
-    //         console.log(error);
-    //     })
-    //     .then(function () {
-    //         // always executed
-    //     });
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
 
     return (
         <div>

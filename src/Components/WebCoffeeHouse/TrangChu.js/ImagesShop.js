@@ -4,7 +4,7 @@ const ImagesShop = () => {
   return (
     <div className="Hinh_Anh_Quan_Coffee">
       <div className="container">
-        <h2 className="The_h2  wow animate__bounceInDown" data-wow-duration="1s" data-wow-delay="2s" data-wow-offset={50}>HÌNH ẢNH QUÁN CAFE</h2>
+        <h2 className="The_h2  wow animate__bounceInDown" style={{marginTop: '40px', marginBottom: '40px'}} data-wow-duration="1s" data-wow-delay="2s" data-wow-offset={50}>HÌNH ẢNH QUÁN CAFE</h2>
         <div className="row">
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div className="khoi_imgtrai wow animate__rollIn" data-wow-duration="1s" data-wow-delay="1s" data-wow-offset={50}>
