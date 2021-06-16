@@ -5,7 +5,7 @@ import CKEditor from 'ckeditor4-react';
 import MenuBar from "../MenuBar";
 import { getCoffee, updateCoffee } from '../../../services';
 import { useHistory, useParams } from 'react-router-dom';
-import { Url_Image } from '../../../config/Until';
+import { Url_Image, Url_Locahost } from '../../../config/Until';
 const EditProduct = () => {
     const [data, setdata] = React.useState();
     const [Ten, setTen] = React.useState();
@@ -30,7 +30,7 @@ const EditProduct = () => {
     const history = useHistory();
     
     React.useEffect(() => {
-        axios.get('https://servercoffeehouse.herokuapp.com/getloai').then(function (response) {
+        axios.get( Url_Locahost+ '/getloai').then(function (response) {
             setloai(response.data);
         }).catch(function (error) {
             console.log(error);
@@ -65,7 +65,7 @@ const EditProduct = () => {
                 'content-type': 'multipart/form-data'
             }
         }
-        await axios.post('http://localhost:5000/uploadImages', formData, config).then(res => {
+        await axios.post( Url_Locahost+'/uploadImages', formData, config).then(res => {
             console.log('RES', res.data.fileNameInServer)
             let filePath = res.data.fileNameInServer
             if (filePath) {

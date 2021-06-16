@@ -1,6 +1,6 @@
 const initialState = {
     cart: [],
-    _idLoai: 'L03',
+    _idLoai: 'L01',
     keyMenu: "Trang Chủ"
 };
 

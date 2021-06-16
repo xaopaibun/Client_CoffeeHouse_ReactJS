@@ -1,11 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import { getUser } from '../../../services';
 const GetUser = () => {
     const [ListUser, setListUser] = React.useState();
 
     React.useEffect(() => {
-        axios.get('http://localhost:5000/getUser')
-            .then(function (response) {
+        getUser().then(function (response) {
                 setListUser(response.data);
             })
             .catch(function (error) {

@@ -3,7 +3,7 @@ import '../../../assets/CSS/Fromlogin.css';
 import { loginAdmin } from '../../../services';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import ls from "local-storage";
+
 const Login = () => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
@@ -13,9 +13,11 @@ const Login = () => {
         let admin = { gmail: username, password: password }
         loginAdmin(admin).then(res => {
             dispatch({ type: 'TOKEN', Token: res.data.accessToken })
-            ls.set('Token', res.data.accessToken)
+            localStorage.setItem('Token', res.data.accessToken)
+            alert('login thanh cong')
             history.push('/Admin/Home');
-        }).catch(err => console.log(err));
+
+        }).catch(err =>  alert('login that bai', err));
     }
     return (
         <div>

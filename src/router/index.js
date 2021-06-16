@@ -38,100 +38,153 @@ import GioiThieu from "../Components/WebCoffeeHouse/ContentWeb/GioiThieu";
 import SanPhamTheoLoai from "../Components/WebCoffeeHouse/SanPham/SanPhamTheoLoai";
 import Search from '../Components/WebCoffeeHouse/Search'
 export default function RouterApp() {
+  const Token = localStorage.getItem('Token');
+  // let router = (
+  //   <Switch >
+  //     <Route path="/Admin/Login">
+  //       <Login />
+  //     </Route>
+  //     <Route path="/_idCoffee=:id">
+  //       <Coffee />
+  //     </Route>
+  //     <Route path="/DangKy">
+  //       <DangKy />
+  //     </Route>
+  //     <Route path="/AllSanPham">
+  //       <AllSanPham />
+  //     </Route>
+  //     <Route path={"/idLoai=:_id"} >
+  //       <SanPhamTheoLoai />
+  //     </Route>
+  //     <Route path="/Cart">
+  //       <Cart />
+  //     </Route>
+  //     <Route path="/Account">
+  //       <Account />
+  //     </Route>
+  //     <Route path="/DangNhap">
+  //       <DangNhap />
+  //     </Route>
+  //     <Route path="/Search">
+  //       <Search />
+  //     </Route>
+  //     <Route path="/FormDienThongTin">
+  //       <FormDienThongTin />
+  //     </Route>
+  //     <Route path="/GioiThieu">
+  //       <GioiThieu />
+  //     </Route>
+  //     <Route path="/TrangChu">
+  //       <TrangChu />
+  //     </Route>
+  //     <Route path="/">
+  //       <TrangChu />
+  //     </Route>
+  //   </Switch >
+  // )
+
+  //if (!Token) {
+    const router = (
+    <Switch >
+      <Route path="/Admin/Login">
+        <Login />
+      </Route>
+      <Route path="/Admin/NCC">
+        <NCC />
+      </Route>
+      <Route path="/Admin/DonHang/OrderDetail">
+        <OrderDetail />
+      </Route>
+      <Route path="/Admin/DonHang">
+        <DonHang />
+      </Route>
+      <Route path="/Admin/News/AddNews">
+        <AddNews />
+      </Route>
+      <Route path="/Admin/BookingTableOnline">
+        <BookingTableOnline />
+      </Route>
+      <Route path="/Admin/User">
+        <User />
+      </Route>
+      <Route path="/Admin/News">
+        <News />
+      </Route>
+      <Route path="/Admin/MenuQuanLyKhac/QuanLyGioiThieu">
+        <QuanLyGioiThieu />
+      </Route>
+      <Route path="/Admin/MenuQuanLyKhac/QuanLyImagesShop">
+        <QuanLyImagesShop />
+      </Route>
+      <Route path="/Admin/MenuQuanLyKhac">
+        <MenuQuanLyKhac />
+      </Route>
+      <Route path="/Admin/LoaiSanPham">
+        <LoaiCoffee />
+      </Route>
+      <Route path="/Admin/SanPham/EditProduct/:id">
+        <EditProduct />
+      </Route>
+      <Route path="/Admin/SanPham/AddProduct">
+        <AddProduct />
+      </Route>
+      <Route path="/Admin/SanPham">
+        <QuanLyProduct />
+      </Route>
+      <Route path="/Admin/Home">
+        <Home />
+      </Route>
+      <Route path="/Admin">
+        <QuanTri />
+      </Route>
+      <Route path="/_idCoffee=:id">
+        <Coffee />
+      </Route>
+      <Route path="/DangKy">
+        <DangKy />
+      </Route>
+      <Route path="/AllSanPham">
+        <AllSanPham />
+      </Route>
+      <Route path={"/idLoai=:_id"} >
+        <SanPhamTheoLoai />
+      </Route>
+      <Route path="/Cart">
+        <Cart />
+      </Route>
+      <Route path="/Account">
+        <Account />
+      </Route>
+      <Route path="/DangNhap">
+        <DangNhap />
+      </Route>
+      <Route path="/Search">
+        <Search />
+      </Route>
+      <Route path="/FormDienThongTin">
+        <FormDienThongTin />
+      </Route>
+      <Route path="/GioiThieu">
+        <GioiThieu />
+      </Route>
+      <Route path="/TrangChu">
+        <TrangChu />
+      </Route>
+      <Route path="/">
+        <TrangChu />
+      </Route>
+    </Switch >
+    )
+  //}
+
   return (
     <Router>
-        <Switch>
-        <Route path="/Admin/Login">
-            <Login />
-          </Route>
-           <Route path="/Admin/NCC">
-            <NCC />
-          </Route>
-          <Route path="/Admin/DonHang/OrderDetail">
-            <OrderDetail />
-          </Route>
-           <Route path="/Admin/DonHang">
-            <DonHang />
-          </Route>
-          <Route path="/Admin/News/AddNews">
-            <AddNews />
-          </Route>
-          <Route path="/Admin/BookingTableOnline">
-            <BookingTableOnline/>
-          </Route>
-          <Route path="/Admin/User">
-            <User />
-          </Route>
-          <Route path="/Admin/News">
-            <News />
-          </Route>
-          <Route path="/Admin/MenuQuanLyKhac/QuanLyGioiThieu">
-            <QuanLyGioiThieu />
-          </Route>
-          <Route path="/Admin/MenuQuanLyKhac/QuanLyImagesShop">
-            <QuanLyImagesShop />
-          </Route>
-          <Route path="/Admin/MenuQuanLyKhac">
-            <MenuQuanLyKhac />
-          </Route>
-          <Route path="/Admin/LoaiSanPham">
-            <LoaiCoffee/>
-          </Route>
-          <Route path="/Admin/SanPham/EditProduct/:id">
-            <EditProduct />
-          </Route>
-          <Route path="/Admin/SanPham/AddProduct">
-            <AddProduct />
-          </Route>
-          <Route path="/Admin/SanPham">
-            <QuanLyProduct />
-          </Route>
-          <Route path="/Admin/Home">
-            <Home />
-          </Route>
-          <Route path="/Admin">
-            <QuanTri />
-          </Route>
-          <Route path="/_idCoffee=:id">
-            <Coffee />
-          </Route>
-          <Route path="/DangKy">
-            <DangKy />
-          </Route>
-          <Route path="/AllSanPham">
-            <AllSanPham />
-          </Route>
-          <Route path={"/idLoai=:_id"} >
-            <SanPhamTheoLoai />
-          </Route>
-          <Route path="/Cart">
-            <Cart />
-          </Route>
-          <Route path="/Account">
-            <Account/>
-          </Route>
-          <Route path="/DangNhap">
-            <DangNhap />
-          </Route>
-          <Route path="/Search">
-            <Search />
-          </Route>
-          <Route path="/FormDienThongTin">
-            <FormDienThongTin />
-          </Route>
-          <Route path="/GioiThieu">
-            <GioiThieu />
-          </Route>
-          <Route path="/TrangChu">
-            <TrangChu />
-          </Route>
-          <Route path="/">
-            <TrangChu />
-          </Route>
-          
-         
-        </Switch>
-      
+
+      {router}
+
+
+
+
     </Router>
   );
 }

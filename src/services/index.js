@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { Token, Url_Locahost } from '../config/Until';
+import {  Url_Locahost } from '../config/Until';
 
 const instance = axios.create({
     baseURL: Url_Locahost,
@@ -10,6 +10,9 @@ const instance = axios.create({
         'Content-Type': 'application/json'
       },
 });
+const Token = localStorage.getItem('Token');
+
+console.log('token la : ', Token);
 
 
 const instanceAdmin = axios.create({
@@ -18,7 +21,7 @@ const instanceAdmin = axios.create({
   headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      // 'Authorization': `bearer ${Token}`
+      //'Authorization': `Bearer ${Token}`
     },
 });
 
@@ -80,6 +83,8 @@ export const loginAdmin =  (prams) => instance.post('/user/loginAdmin', prams);
 //getdata theo page trang quản trị
 export const getdatapage1 = () => instanceAdmin.get('/getdata/page=1');
 export const getdatapage = (page) => instanceAdmin.get('/getdata/page=' +page);
+export const getUser = () => instanceAdmin.get('/getUser');
+
 
 //Get News quản lí tin tức
 export const getNews = () => instance.get('/getNews');
