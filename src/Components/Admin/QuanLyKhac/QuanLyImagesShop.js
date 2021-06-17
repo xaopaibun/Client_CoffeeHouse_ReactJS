@@ -32,7 +32,7 @@ const QuanLyImagesShop = () => {
                 'content-type': 'multipart/form-data'
             }
         }
-        await axios.post(Url_Locahost + 'uploadImages', formData, config).then(res => {
+        await axios.post(Url_Locahost + '/uploadImages', formData, config).then(res => {
             console.log('RES', res.data.fileNameInServer)
             let filePath = res.data.fileNameInServer
             if (filePath) {

@@ -42,9 +42,6 @@ const AddNews = () => {
 
             console.log(error);
         })
-        .then(function () {
-            // always executed
-        });
 
     return (
         <div>

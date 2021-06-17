@@ -28,7 +28,7 @@ const NewsCoffee = () => {
                                                 <img src={val.ImageNews} width="255px" height="255px" alt="Image News" />
                                             </div>
                                             <div className="col-xl-6">
-                                                <p style={{ color: '#707070' }}><i className="fas fa-calendar-alt" style={{ color: '#e7b45a' }} /> {HandleTime(parseInt(val.time))}</p>
+                                                {/* <p style={{ color: '#707070' }}><i className="fas fa-calendar-alt" style={{ color: '#e7b45a' }} /> {HandleTime(parseInt(val.time))}</p> */}
                                                 <h3><a href =''>{val.titleNews}</a></h3>
                                                 <div className="content" dangerouslySetInnerHTML={{ __html: val.Content}} ></div>
                                             </div>

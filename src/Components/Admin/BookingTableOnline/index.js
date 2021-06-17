@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 const BookingTableOnline = () => {
     const history = useHistory();
     const [BookingTableOnline, setBookingTableOnline] = React.useState([]);
-const [Table, setTable] = React.useState('');
+    const [Table, setTable] = React.useState('');
     React.useEffect(() => {
         getBookingTableOnline()
             .then(function (response) {
@@ -20,9 +20,8 @@ const [Table, setTable] = React.useState('');
     }, []);
 
     const onUpdate = async (id) => {
-        
-         await updateBookingTableOnline(id).then(function (response) {
-            history.push('/Admin')
+
+        await updateBookingTableOnline(id).then(function (response) {
             history.push('/Admin/BookingTableOnline')
             alert('Cập nhật thành công')
         })
@@ -31,14 +30,12 @@ const [Table, setTable] = React.useState('');
                 console.log(error);
             })
     }
-    const onCance = (id) =>{
+    const onCance = (id) => {
         cancelBookingTableOnline(id).then(function (response) {
             alert('hủy thành công')
             history.push('/Admin')
             history.push('/Admin/BookingTableOnline')
-            
-        })
-            .catch(function (error) {
+        }) .catch(function (error) {
                 // handle error
                 console.log(error);
             })
@@ -62,7 +59,7 @@ const [Table, setTable] = React.useState('');
                     <MenuBar />
                 </div>
                 <div className="col-xl-10">
-                    
+
                     <div className='container'>
                         <table class="table table-hover" >
                             <thead>
@@ -88,13 +85,13 @@ const [Table, setTable] = React.useState('');
                                                 <td><strong>{val.date}</strong></td>
                                                 <td>{val.timeslot}</td>
                                                 <td>
-                                                    <strong>{val.status == 1  ? 'Đã xử lý' : val.status == 2  ? 'Đã hủy' : 'Chưa xử lý'}</strong>
+                                                    <strong>{val.status == 1 ? 'Đã xử lý' : val.status == 2 ? 'Đã hủy' : 'Chưa xử lý'}</strong>
                                                 </td>
                                                 <td>
                                                     {val.table ? val.table : Table}
                                                 </td>
                                                 <td>
-                                                    {val.status == 0 ? <button type="button" class="btn btn-outline-dark btn-lg" onClick={() => onUpdate(val._id)}>Random Bàn</button> :val.status  == 1 ? <button type="button" onClick = {() => onCance(val._id)} class="btn btn-danger btn-lg">Hủy</button> :<div/>}
+                                                    {val.status == 0 ? <button type="button" class="btn btn-outline-dark btn-lg" onClick={() => onUpdate(val._id)}>Random Bàn</button> : val.status == 1 ? <button type="button" onClick={() => onCance(val._id)} class="btn btn-danger btn-lg">Hủy</button> : <div />}
                                                     <span > </span>
                                                     <button type="button" class="btn btn-dark btn-lg" onClick={() => onDelete(val._id)}>Xóa</button>
                                                 </td>

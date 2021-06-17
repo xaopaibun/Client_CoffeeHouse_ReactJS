@@ -10,6 +10,8 @@ const instance = axios.create({
         'Content-Type': 'application/json'
       },
 });
+
+
 const Token = localStorage.getItem('Token');
 
 console.log('token la : ', Token);
@@ -83,6 +85,8 @@ export const loginAdmin =  (prams) => instance.post('/user/loginAdmin', prams);
 //getdata theo page trang quản trị
 export const getdatapage1 = () => instanceAdmin.get('/getdata/page=1');
 export const getdatapage = (page) => instanceAdmin.get('/getdata/page=' +page);
+
+
 export const getUser = () => instanceAdmin.get('/getUser');
 
 

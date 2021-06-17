@@ -1,18 +1,35 @@
 import React from 'react'
 import axios from 'axios'
 import { getUser } from '../../../services';
+import { Url_Locahost } from '../../../config/Until';
+
 const GetUser = () => {
     const [ListUser, setListUser] = React.useState();
 
     React.useEffect(() => {
         getUser().then(function (response) {
-                setListUser(response.data);
-            })
+            setListUser(response.data);
+        })
             .catch(function (error) {
                 // handle error
                 console.log(error);
             })
     }, []);
+    const Xoa = (id) => {
+        axios.delete(Url_Locahost + '/deleteUser/' + id)
+            .then(function (response) {
+                // DonHang.filter((val) => val._id !== id)
+                setListUser(ListUser.filter(item => item._id !== id))
+
+                alert('Xóa thành công');
+
+            })
+            .catch(function (error) {
+
+                console.log(error);
+            }
+            )
+    }
     return (
         <div>
             <table class="table table-hover" >
@@ -42,7 +59,7 @@ const GetUser = () => {
                                         {val.type == true ? <div /> : <div>
                                             <button type="button" className="btn btn-success" >Hủy kích hoạt</button>
                                             <span> </span>
-                                            <button type="button" className="btn btn-info">Xóa User</button>
+                                            <button type="button" className="btn btn-info" onClick={() => Xoa(val._id)}>Xóa User</button>
                                         </div>
                                         }
                                     </td>

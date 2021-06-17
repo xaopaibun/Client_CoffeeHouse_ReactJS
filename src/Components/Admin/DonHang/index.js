@@ -47,9 +47,10 @@ const DonHang = () => {
         axios.delete(Url_Locahost + '/deleteorderProducts_iD/' + id)
             .then(function (response) {
                 // DonHang.filter((val) => val._id !== id)
+                setDonHang(DonHang.filter(item => item._id !== id))
+              
                 alert('Xóa thành công');
-                history.push('/Admin');
-                history.push('/Admin/DonHang');
+             
             })
             .catch(function (error) {
 

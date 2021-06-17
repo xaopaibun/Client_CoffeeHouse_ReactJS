@@ -65,12 +65,31 @@ const AddProduct = () => {
 
     const ClickSubmit = async (evt) => {
         evt.preventDefault();
-        if (Image == '') {
+        if (!Image == '') {
             alert('Bạn chưa chọn file.')
             return;
         }
-
-        let dulieucanthem = await { _id: Math.random().toString(), ten: Ten, images: Image, gia: Gia, mota: MoTa, thongtin: ThongTin, thuonghieu: ThuongHieu, soluong: SoLuong, _idloai: Loai };
+        else if(!Ten){
+            alert('Bạn chưa nhập tên coffee')
+        }
+        
+        else if(!parseInt(Gia)){
+            alert('Bạn nhập sai định giá rồi, Gía phải là số')
+        }
+        else if(!parseInt(SoLuong)){
+            alert('Bạn nhập sai định dạng số lượng, số lượng phải là số')
+        }
+          else if(!MoTa){
+            alert('Mô tả không dc để rỗng')
+        }
+           else if(!ThongTin){
+            alert('Thong Tin không dc để rỗng')
+        }
+           else if(!ThuongHieu){
+            alert('Thuong Hieu không dc để rỗng')
+        }
+        else{
+let dulieucanthem = await { _id: Math.random().toString(), ten: Ten, images: Image, gia: Gia, mota: MoTa, thongtin: ThongTin, thuonghieu: ThuongHieu, soluong: SoLuong, _idloai: Loai };
         await axios.post('http://localhost:5000/addCoffee', dulieucanthem)
             .then(function (response) {
                 alert('Thêm thành công')
@@ -78,6 +97,9 @@ const AddProduct = () => {
             .catch(function (error) {
                 alert('lỗi', error)
             });
+        }
+
+        
     }
 
     return (
@@ -98,7 +120,7 @@ const AddProduct = () => {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor>Loại Coffee </label>
-                                        <select className="form-control" name="LoaiCoffee" id="LoaiCoffee" onChange={(val) => isChangeLoai(val)} >
+                                        <select className="form-control" name="LoaiCoffee" value={Loai} id="LoaiCoffee" onChange={(val) => isChangeLoai(val)} >
                                             {
                                                 loai && loai.map((val) => (
                                                     <option value={val._id} >{val.tenloai}</option>

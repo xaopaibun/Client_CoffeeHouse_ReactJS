@@ -27,15 +27,21 @@ const LoaiCoffee = () => {
 
 
     const onAdd = () => {
-        axios.post(Url_Locahost + '/addloaicoffee', { tenloai: name })
-            .then(function (response) {
-                alert('Thêm loại mới thành công');
-                history.push('/Admin');
-                history.push('/Admin/LoaiSanPham');
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        if (!name) {
+            alert('Bạn chưa nhập tên loại coffee')
+        }
+        else {
+            axios.post(Url_Locahost + '/addloaicoffee', { tenloai: name })
+                .then(function (response) {
+                    alert('Thêm loại mới thành công');
+                    history.push('/Admin');
+                    history.push('/Admin/LoaiSanPham');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }
+
     }
 
     const onEdit = () => {

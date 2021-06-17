@@ -83,8 +83,9 @@ const EditProduct = () => {
             return;
         }
         let dulieucanthem = { ten: Ten, images: Image, gia: Gia, mota: MoTa, thongtin: ThongTin, thuonghieu: ThuongHieu, soluong: SoLuong, _idloai: Loai };
-        updateCoffee(id,dulieucanthem).then(function (response) {
+        updateCoffee(id, dulieucanthem).then(function (response) {
             alert('Update thành công');
+           
             history.push('/Admin/SanPham')
         }).catch(function (error) {
                 alert('lỗi', error)
